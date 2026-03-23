@@ -1,59 +1,68 @@
 const navLinks = document.querySelectorAll(".nav-links a");
 const navContainer = document.getElementById("navLinks");
 const menuToggle = document.getElementById("menuToggle");
-const sections = document.querySelectorAll("section");
+const sections = document.querySelectorAll("section[id]");
 const revealElements = document.querySelectorAll(".reveal");
+const typingTarget = document.getElementById("typing-name");
 
-/* Always start from top on reload */
+const fullName = "Md Raqibul Islam Masum";
+let typingIndex = 0;
+let typingTimeout = null;
+
 window.addEventListener("load", () => {
   if (window.location.hash) {
     history.replaceState(null, null, window.location.pathname);
   }
 
-  window.scrollTo({
-    top: 0,
-    behavior: "instant"
-  });
-
-  typeName();
-  window.dispatchEvent(new Event("scroll"));
+  window.scrollTo(0, 0);
+  startTypingEffect();
+  handleScrollEffects();
 });
 
-/* Mobile menu toggle */
 if (menuToggle) {
   menuToggle.addEventListener("click", () => {
     navContainer.classList.toggle("show");
     menuToggle.classList.toggle("active");
+
+    const expanded = menuToggle.classList.contains("active");
+    menuToggle.setAttribute("aria-expanded", expanded ? "true" : "false");
   });
 }
 
-/* Close mobile menu when clicking nav link */
 navLinks.forEach((link) => {
   link.addEventListener("click", function () {
     navLinks.forEach((item) => item.classList.remove("active"));
     this.classList.add("active");
 
-    if (navContainer) navContainer.classList.remove("show");
-    if (menuToggle) menuToggle.classList.remove("active");
+    if (navContainer) {
+      navContainer.classList.remove("show");
+    }
+
+    if (menuToggle) {
+      menuToggle.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
   });
 });
 
-/* Active nav + reveal on scroll */
-window.addEventListener("scroll", () => {
-  let current = "";
+window.addEventListener("scroll", handleScrollEffects);
+
+function handleScrollEffects() {
+  let currentSection = "";
 
   sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 140;
+    const sectionTop = section.offsetTop - 160;
     const sectionHeight = section.offsetHeight;
 
     if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-      current = section.getAttribute("id");
+      currentSection = section.getAttribute("id");
     }
   });
 
   navLinks.forEach((link) => {
     link.classList.remove("active");
-    if (link.getAttribute("href") === `#${current}`) {
+
+    if (link.getAttribute("href") === `#${currentSection}`) {
       link.classList.add("active");
     }
   });
@@ -67,39 +76,35 @@ window.addEventListener("scroll", () => {
       element.classList.add("active-reveal");
     }
   });
-});
+}
 
-/* Typing effect */
-const typingTarget = document.getElementById("typing-name");
-const fullName = "Md Raqibul Islam Masum";
-let index = 0;
-
-function typeName() {
+function startTypingEffect() {
   if (!typingTarget) return;
 
+  clearTimeout(typingTimeout);
   typingTarget.textContent = "";
-  index = 0;
+  typingIndex = 0;
 
   function type() {
-    if (index < fullName.length) {
-      typingTarget.textContent += fullName.charAt(index);
-      index++;
-      setTimeout(type, 90);
+    if (typingIndex < fullName.length) {
+      typingTarget.textContent += fullName.charAt(typingIndex);
+      typingIndex++;
+      typingTimeout = setTimeout(type, 85);
     }
   }
 
   type();
 }
 
-/* Close mobile menu if clicked outside */
-document.addEventListener("click", (e) => {
+document.addEventListener("click", (event) => {
   if (!navContainer || !menuToggle) return;
 
-  const clickedInsideMenu = navContainer.contains(e.target);
-  const clickedToggle = menuToggle.contains(e.target);
+  const clickedInsideMenu = navContainer.contains(event.target);
+  const clickedToggle = menuToggle.contains(event.target);
 
   if (!clickedInsideMenu && !clickedToggle) {
     navContainer.classList.remove("show");
     menuToggle.classList.remove("active");
+    menuToggle.setAttribute("aria-expanded", "false");
   }
 });
