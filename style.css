@@ -266,6 +266,14 @@ body {
   animation: spin 22s linear infinite;
 }
 
+.ring-two {
+  width: 430px;
+  height: 430px;
+  border-color: rgba(65, 184, 255, 0.28);
+  animation-direction: reverse;
+  animation-duration: 16s;
+}
+
 .profile-circle {
   position: relative;
   z-index: 5;
@@ -634,6 +642,11 @@ body {
     height: 360px;
   }
 
+  .ring-two {
+    width: 300px;
+    height: 300px;
+  }
+
   .hero-right {
     min-height: 420px;
   }
@@ -697,6 +710,11 @@ body {
   .circle-ring {
     width: 300px;
     height: 300px;
+  }
+
+  .ring-two {
+    width: 250px;
+    height: 250px;
   }
 
   .hero-right {
