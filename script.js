@@ -4,6 +4,11 @@ const menuToggle = document.getElementById("menuToggle");
 const sections = document.querySelectorAll("section[id]");
 const revealElements = document.querySelectorAll(".reveal");
 const navbar = document.getElementById("navbar");
+const typingTarget = document.getElementById("typing-name");
+
+const fullName = "Md Raqibul Islam Masum";
+let typingIndex = 0;
+let typingTimeout = null;
 
 window.addEventListener("load", () => {
   if (window.location.hash) {
@@ -11,6 +16,7 @@ window.addEventListener("load", () => {
   }
 
   window.scrollTo(0, 0);
+  startTypingEffect();
   handleScrollEffects();
 });
 
@@ -79,6 +85,24 @@ function handleScrollEffects() {
       element.classList.add("active-reveal");
     }
   });
+}
+
+function startTypingEffect() {
+  if (!typingTarget) return;
+
+  clearTimeout(typingTimeout);
+  typingTarget.textContent = "";
+  typingIndex = 0;
+
+  function type() {
+    if (typingIndex < fullName.length) {
+      typingTarget.textContent += fullName.charAt(typingIndex);
+      typingIndex++;
+      typingTimeout = setTimeout(type, 85);
+    }
+  }
+
+  type();
 }
 
 document.addEventListener("click", (event) => {
