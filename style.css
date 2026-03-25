@@ -245,6 +245,7 @@ body {
   padding: 10px 16px;
   border-radius: 999px;
   margin-bottom: 22px;
+  animation: badgePulse 3.5s ease-in-out infinite;
 }
 
 .hero-name {
@@ -298,7 +299,7 @@ body {
   border-radius: 16px;
   font-size: 1rem;
   font-weight: 700;
-  transition: 0.3s ease;
+  transition: 0.35s ease;
 }
 
 .primary-btn {
@@ -308,7 +309,8 @@ body {
 }
 
 .primary-btn:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 18px 34px rgba(255, 134, 104, 0.28);
 }
 
 .outline-btn {
@@ -319,7 +321,7 @@ body {
 
 .outline-btn:hover {
   background: rgba(65, 184, 255, 0.08);
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .hero-right {
@@ -328,6 +330,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.ring-glow {
+  position: absolute;
+  width: 540px;
+  height: 540px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(65, 184, 255, 0.14) 0%, rgba(139, 92, 246, 0.06) 40%, transparent 68%);
+  filter: blur(10px);
+  animation: pulseGlow 5.2s ease-in-out infinite;
 }
 
 .circle-ring {
@@ -342,7 +355,12 @@ body {
 .ring-two {
   width: 430px;
   height: 430px;
-  border-color: rgba(65, 184, 255, 0.28);
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgba(65, 184, 255, 0.22);
+  box-shadow:
+    0 0 18px rgba(65, 184, 255, 0.12),
+    inset 0 0 18px rgba(65, 184, 255, 0.06);
   animation-direction: reverse;
   animation-duration: 16s;
 }
@@ -359,6 +377,7 @@ body {
     0 0 45px rgba(65, 184, 255, 0.18),
     0 0 80px rgba(0, 0, 0, 0.35);
   background: #ffffff;
+  animation: profileFloat 4.2s ease-in-out infinite;
 }
 
 .profile-image {
@@ -446,11 +465,11 @@ body {
   border-radius: var(--radius-md);
   padding: 34px;
   box-shadow: var(--shadow);
-  transition: 0.3s ease;
+  transition: 0.35s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
 }
 
 .card p {
@@ -461,6 +480,13 @@ body {
 
 .card p + p {
   margin-top: 14px;
+}
+
+.about-highlight {
+  color: #ffffff !important;
+  font-weight: 600;
+  padding-left: 18px;
+  border-left: 3px solid var(--primary);
 }
 
 .services-grid,
@@ -476,7 +502,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 28px;
-  transition: 0.3s ease;
+  transition: 0.35s ease;
   box-shadow: var(--shadow);
 }
 
@@ -497,6 +523,11 @@ body {
   justify-content: center;
   font-size: 1.3rem;
   margin-bottom: 18px;
+  transition: 0.35s ease;
+}
+
+.service-card:hover .service-icon {
+  transform: translateY(-4px) scale(1.05);
 }
 
 .service-card h4,
@@ -513,24 +544,112 @@ body {
   font-size: 1rem;
 }
 
+.projects-grid-enhanced {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.featured-project {
+  padding: 18px;
+  overflow: hidden;
+  position: relative;
+}
+
+.featured-project::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(65, 184, 255, 0.03),
+    rgba(139, 92, 246, 0.02),
+    transparent
+  );
+  opacity: 0;
+  transition: 0.35s ease;
+  pointer-events: none;
+}
+
+.featured-project:hover::before {
+  opacity: 1;
+}
+
+.project-image-box {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 20px;
+}
+
 .project-image {
   width: 100%;
-  border-radius: 16px;
-  margin-bottom: 18px;
+  height: 300px;
+  object-fit: cover;
   display: block;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.45s ease;
+}
+
+.featured-project:hover .project-image {
+  transform: scale(1.05);
 }
 
 .project-badge {
-  display: inline-block;
-  padding: 7px 14px;
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  background: rgba(11, 15, 25, 0.82);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 9px 14px;
   border-radius: 999px;
-  background: rgba(65, 184, 255, 0.1);
-  border: 1px solid rgba(65, 184, 255, 0.15);
-  color: var(--primary);
   font-size: 0.86rem;
   font-weight: 700;
-  margin-bottom: 14px;
+  backdrop-filter: blur(10px);
+  transform: translateY(0);
+  transition: 0.35s ease;
+}
+
+.featured-project:hover .project-badge {
+  transform: translateY(-3px);
+}
+
+.project-content {
+  padding: 4px 4px 2px;
+}
+
+.project-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.project-head h4 {
+  margin-bottom: 0;
+  line-height: 1.35;
+}
+
+.project-no {
+  min-width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(65, 184, 255, 0.12);
+  color: var(--primary);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  border: 1px solid rgba(65, 184, 255, 0.16);
+  flex-shrink: 0;
+  transition: 0.35s ease;
+}
+
+.featured-project:hover .project-no {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(65, 184, 255, 0.14);
 }
 
 .project-tags {
@@ -548,6 +667,12 @@ body {
   color: var(--primary);
   font-size: 0.9rem;
   font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.project-tags span:hover {
+  transform: translateY(-2px);
+  background: rgba(65, 184, 255, 0.15);
 }
 
 .skills-grid {
@@ -622,7 +747,7 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(45px);
-  transition: all 0.8s ease;
+  transition: opacity 0.85s ease, transform 0.85s ease;
 }
 
 .reveal.active-reveal {
@@ -654,6 +779,35 @@ body {
   }
 }
 
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(0.96);
+    opacity: 0.78;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+}
+
+@keyframes profileFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(65, 184, 255, 0);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(65, 184, 255, 0.12);
+  }
+}
+
 @media (max-width: 1100px) {
   .hero {
     grid-template-columns: 1fr;
@@ -680,6 +834,10 @@ body {
   .hero-buttons,
   .contact-buttons {
     justify-content: center;
+  }
+
+  .projects-grid-enhanced {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -765,6 +923,11 @@ body {
     height: 300px;
   }
 
+  .ring-glow {
+    width: 390px;
+    height: 390px;
+  }
+
   .circle-ring {
     width: 360px;
     height: 360px;
@@ -814,6 +977,14 @@ body {
   .project-card {
     padding: 24px;
   }
+
+  .featured-project {
+    padding: 14px;
+  }
+
+  .project-image {
+    height: 240px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -834,6 +1005,11 @@ body {
   .profile-circle {
     width: 245px;
     height: 245px;
+  }
+
+  .ring-glow {
+    width: 320px;
+    height: 320px;
   }
 
   .circle-ring {
@@ -880,6 +1056,20 @@ body {
   .section {
     padding-top: 58px;
     padding-bottom: 58px;
+  }
+
+  .project-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-no {
+    width: 40px;
+    height: 40px;
+  }
+
+  .project-image {
+    height: 210px;
   }
 
   .whatsapp-float {
