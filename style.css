@@ -256,13 +256,13 @@ body {
   min-height: 100px;
 }
 
-#typing-name {
-  display: inline-block;
+#typing-name,
+.cursor {
+  display: inline;
 }
 
 .cursor {
   color: var(--primary);
-  display: inline-block;
   animation: blink 0.8s infinite;
 }
 
