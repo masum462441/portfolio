@@ -3,6 +3,7 @@ const navContainer = document.getElementById("navLinks");
 const menuToggle = document.getElementById("menuToggle");
 const sections = document.querySelectorAll("section[id]");
 const revealElements = document.querySelectorAll(".reveal");
+const navbar = document.getElementById("navbar");
 
 window.addEventListener("load", () => {
   if (window.location.hash) {
@@ -42,6 +43,14 @@ navLinks.forEach((link) => {
 window.addEventListener("scroll", handleScrollEffects);
 
 function handleScrollEffects() {
+  if (navbar) {
+    if (window.scrollY > 30) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  }
+
   let currentSection = "";
 
   sections.forEach((section) => {
