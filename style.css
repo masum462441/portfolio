@@ -64,7 +64,7 @@ body {
 
 .navbar.scrolled {
   padding: 14px 40px;
-  background: rgba(8, 10, 18, 0.9);
+  background: rgba(8, 10, 18, 0.92);
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
   border-bottom: 1px solid rgba(65, 184, 255, 0.08);
 }
@@ -253,6 +253,17 @@ body {
   font-weight: 800;
   color: var(--text-main);
   margin-bottom: 18px;
+  min-height: 100px;
+}
+
+#typing-name {
+  display: inline-block;
+}
+
+.cursor {
+  color: var(--primary);
+  display: inline-block;
+  animation: blink 0.8s infinite;
 }
 
 .hero-left h2 {
@@ -614,6 +625,15 @@ body {
   }
 }
 
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 1100px) {
   .hero {
     grid-template-columns: 1fr;
@@ -708,6 +728,7 @@ body {
   }
 
   .hero-name {
+    min-height: 90px;
     font-size: 2.3rem;
   }
 
@@ -777,6 +798,7 @@ body {
 
 @media (max-width: 480px) {
   .hero-name {
+    min-height: 80px;
     font-size: 2rem;
   }
 
