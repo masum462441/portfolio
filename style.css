@@ -735,6 +735,31 @@ body {
   background: rgba(65, 184, 255, 0.15);
 }
 
+.app-project .app-video-box {
+  padding: 0;
+}
+
+.app-demo-video {
+  width: 100%;
+  display: block;
+  border-radius: 20px;
+  background: #000;
+}
+
+.app-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.app-install-note {
+  margin-top: 16px;
+  color: var(--text-muted) !important;
+  font-size: 0.92rem !important;
+  line-height: 1.7 !important;
+}
+
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
@@ -898,7 +923,8 @@ body {
   }
 
   .hero-buttons,
-  .contact-buttons {
+  .contact-buttons,
+  .app-action-buttons {
     justify-content: center;
   }
 
@@ -1055,6 +1081,10 @@ body {
 
   .project-image {
     height: 240px;
+  }
+
+  .app-action-buttons {
+    flex-direction: column;
   }
 }
 
