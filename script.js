@@ -5,6 +5,8 @@ const sections = document.querySelectorAll("section[id]");
 const revealElements = document.querySelectorAll(".reveal");
 const navbar = document.getElementById("navbar");
 const typingTarget = document.getElementById("typing-name");
+const watchDemoBtn = document.getElementById("watchDemoBtn");
+const appDemoVideo = document.getElementById("appDemoVideo");
 
 const fullName = "Md Raqibul Islam Masum";
 let typingIndex = 0;
@@ -103,6 +105,21 @@ function startTypingEffect() {
   }
 
   type();
+}
+
+if (watchDemoBtn && appDemoVideo) {
+  watchDemoBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    appDemoVideo.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+    setTimeout(() => {
+      appDemoVideo.play();
+    }, 500);
+  });
 }
 
 document.addEventListener("click", (event) => {
