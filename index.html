@@ -289,13 +289,23 @@
 
       <div class="project-card featured-project app-project">
         <div class="project-image-box app-video-box">
-          <video controls preload="metadata" class="app-demo-video">
+          <video
+            controls
+            preload="metadata"
+            class="app-demo-video"
+            id="appDemoVideo"
+            controlsList="nodownload"
+            playsinline
+          >
             <source
               src="https://github.com/masum462441/portfolio/releases/download/v1.0/Calculator.Apps.Use.Video.mp4"
               type="video/mp4"
             />
           </video>
-          <div class="project-badge">Android App</div>
+
+          <div class="project-badge play-badge">
+            <i class="fa-solid fa-circle-play"></i> Play Demo
+          </div>
         </div>
 
         <div class="project-content">
@@ -327,12 +337,7 @@
               Download APK
             </a>
 
-            <a
-              href="https://github.com/masum462441/portfolio/releases/download/v1.0/Calculator.Apps.Use.Video.mp4"
-              class="btn outline-btn"
-              target="_blank"
-              rel="noopener"
-            >
+            <a href="#appDemoVideo" class="btn outline-btn" id="watchDemoBtn">
               <i class="fa-solid fa-circle-play"></i>
               Watch Demo
             </a>
