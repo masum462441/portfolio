@@ -12,17 +12,41 @@ const fullName = "Md Raqibul Islam Masum";
 let typingIndex = 0;
 let typingTimeout = null;
 
-window.addEventListener("load", () => {
-  if (window.location.hash) {
-    history.replaceState(null, null, window.location.pathname);
-  }
+/*
+  Reload / refresh korle browser normally last scroll position
+  ba #skills / #contact hash remember kore.
+  Ei setting seta off kore.
+*/
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
 
-  window.scrollTo(0, 0);
+document.addEventListener("DOMContentLoaded", () => {
+  forceStartFromTop();
+});
+
+window.addEventListener("load", () => {
+  forceStartFromTop();
   startTypingEffect();
   handleScrollEffects();
 });
 
-if (menuToggle) {
+window.addEventListener("pageshow", () => {
+  forceStartFromTop();
+  handleScrollEffects();
+});
+
+window.addEventListener("scroll", handleScrollEffects);
+
+function forceStartFromTop() {
+  if (window.location.hash) {
+    history.replaceState(null, "", window.location.pathname);
+  }
+
+  window.scrollTo(0, 0);
+}
+
+if (menuToggle && navContainer) {
   menuToggle.addEventListener("click", () => {
     navContainer.classList.toggle("show");
     menuToggle.classList.toggle("active");
@@ -36,36 +60,37 @@ navLinks.forEach((link) => {
   link.addEventListener("click", function () {
     navLinks.forEach((item) => item.classList.remove("active"));
     this.classList.add("active");
-
-    if (navContainer) {
-      navContainer.classList.remove("show");
-    }
-
-    if (menuToggle) {
-      menuToggle.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", "false");
-    }
+    closeMobileMenu();
   });
 });
 
-window.addEventListener("scroll", handleScrollEffects);
-
 function handleScrollEffects() {
-  if (navbar) {
-    if (window.scrollY > 30) {
-      navbar.classList.add("scrolled");
-    } else {
-      navbar.classList.remove("scrolled");
-    }
-  }
+  handleNavbarStyle();
+  handleActiveNavLink();
+  handleRevealAnimation();
+}
 
-  let currentSection = "";
+function handleNavbarStyle() {
+  if (!navbar) return;
+
+  if (window.scrollY > 30) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
+  }
+}
+
+function handleActiveNavLink() {
+  let currentSection = "home";
 
   sections.forEach((section) => {
     const sectionTop = section.offsetTop - 160;
     const sectionHeight = section.offsetHeight;
 
-    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+    if (
+      window.scrollY >= sectionTop &&
+      window.scrollY < sectionTop + sectionHeight
+    ) {
       currentSection = section.getAttribute("id");
     }
   });
@@ -77,7 +102,9 @@ function handleScrollEffects() {
       link.classList.add("active");
     }
   });
+}
 
+function handleRevealAnimation() {
   revealElements.forEach((element) => {
     const windowHeight = window.innerHeight;
     const elementTop = element.getBoundingClientRect().top;
@@ -96,15 +123,15 @@ function startTypingEffect() {
   typingTarget.textContent = "";
   typingIndex = 0;
 
-  function type() {
+  function typeName() {
     if (typingIndex < fullName.length) {
       typingTarget.textContent += fullName.charAt(typingIndex);
       typingIndex++;
-      typingTimeout = setTimeout(type, 85);
+      typingTimeout = setTimeout(typeName, 85);
     }
   }
 
-  type();
+  typeName();
 }
 
 if (watchDemoBtn && appDemoVideo) {
@@ -117,7 +144,13 @@ if (watchDemoBtn && appDemoVideo) {
     });
 
     setTimeout(() => {
-      appDemoVideo.play();
+      const playPromise = appDemoVideo.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          appDemoVideo.setAttribute("controls", "controls");
+        });
+      }
     }, 500);
   });
 }
@@ -129,8 +162,20 @@ document.addEventListener("click", (event) => {
   const clickedToggle = menuToggle.contains(event.target);
 
   if (!clickedInsideMenu && !clickedToggle) {
-    navContainer.classList.remove("show");
-    menuToggle.classList.remove("active");
-    menuToggle.setAttribute("aria-expanded", "false");
+    closeMobileMenu();
   }
 });
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeMobileMenu();
+  }
+});
+
+function closeMobileMenu() {
+  if (!navContainer || !menuToggle) return;
+
+  navContainer.classList.remove("show");
+  menuToggle.classList.remove("active");
+  menuToggle.setAttribute("aria-expanded", "false");
+}

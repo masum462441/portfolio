@@ -15,6 +15,7 @@
   --primary: #41b8ff;
   --accent: #ff9e87;
   --accent-2: #8b5cf6;
+  --green: #25d366;
   --border: rgba(255, 255, 255, 0.08);
   --shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
   --radius-lg: 30px;
@@ -46,36 +47,97 @@ body {
   backdrop-filter: blur(12px);
 }
 
+/* ===== Navbar premium style ===== */
+
 .navbar {
   width: 100%;
   padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(10, 12, 20, 0.72);
+  background:
+    linear-gradient(135deg, rgba(10, 12, 20, 0.95), rgba(17, 20, 36, 0.88)),
+    rgba(10, 12, 20, 0.92);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(65, 184, 255, 0.18);
   transition: all 0.35s ease;
+  overflow: hidden;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  left: -15%;
+  bottom: 0;
+  width: 35%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), var(--accent-2), transparent);
+  animation: navGlowLine 4s linear infinite;
+  opacity: 0.95;
+}
+
+.navbar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(65, 184, 255, 0.12), transparent 26%),
+    radial-gradient(circle at 88% 0%, rgba(255, 158, 135, 0.10), transparent 28%);
+  pointer-events: none;
+}
+
+.navbar > * {
+  position: relative;
+  z-index: 2;
 }
 
 .navbar.scrolled {
   padding: 14px 40px;
-  background: rgba(8, 10, 18, 0.92);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
-  border-bottom: 1px solid rgba(65, 184, 255, 0.08);
+  background:
+    linear-gradient(135deg, rgba(8, 10, 18, 0.98), rgba(14, 17, 31, 0.95)),
+    rgba(8, 10, 18, 0.92);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.34);
+  border-bottom: 1px solid rgba(65, 184, 255, 0.22);
 }
 
+/* ===== Clean professional logo ===== */
+
 .logo {
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-size: 2rem;
+  font-weight: 900;
   text-decoration: none;
   color: var(--text-main);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
   position: relative;
+  transition: 0.35s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1;
+}
+
+.logo::before {
+  content: "</>";
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(135deg, rgba(65, 184, 255, 0.22), rgba(139, 92, 246, 0.18)),
+    rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(65, 184, 255, 0.26);
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 900;
+  box-shadow:
+    0 0 24px rgba(65, 184, 255, 0.14),
+    inset 0 0 18px rgba(255, 255, 255, 0.035);
   transition: 0.35s ease;
 }
 
@@ -84,9 +146,24 @@ body {
   transition: 0.35s ease;
 }
 
+.logo-dot {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 16px rgba(37, 211, 102, 0.75);
+  animation: logoDotPulse 1.6s ease-in-out infinite;
+}
+
 .logo:hover {
-  transform: translateY(-1px);
-  text-shadow: 0 0 18px rgba(255, 158, 135, 0.2);
+  transform: translateY(-2px);
+  text-shadow: 0 0 18px rgba(255, 158, 135, 0.18);
+}
+
+.logo:hover::before {
+  transform: rotate(-4deg) scale(1.04);
+  border-color: rgba(255, 158, 135, 0.35);
 }
 
 .logo:hover span {
@@ -101,15 +178,18 @@ body {
   align-items: center;
   padding: 8px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.018),
+    0 10px 26px rgba(0, 0, 0, 0.18);
 }
 
 .nav-links a {
   color: var(--text-main);
   text-decoration: none;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   position: relative;
   padding: 12px 18px;
   border-radius: 999px;
@@ -124,8 +204,8 @@ body {
   border-radius: 999px;
   background: linear-gradient(
     135deg,
-    rgba(65, 184, 255, 0.14),
-    rgba(139, 92, 246, 0.1)
+    rgba(65, 184, 255, 0.18),
+    rgba(139, 92, 246, 0.14)
   );
   opacity: 0;
   transform: scale(0.9);
@@ -148,7 +228,7 @@ body {
 
 .nav-links a:hover {
   color: #ffffff;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .nav-links a:hover::before {
@@ -164,16 +244,17 @@ body {
   color: #ffffff;
   background: linear-gradient(
     135deg,
-    rgba(65, 184, 255, 0.18),
-    rgba(139, 92, 246, 0.12)
+    rgba(65, 184, 255, 0.26),
+    rgba(139, 92, 246, 0.18)
   );
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
-    0 8px 20px rgba(65, 184, 255, 0.08);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 8px 24px rgba(65, 184, 255, 0.14),
+    0 0 22px rgba(139, 92, 246, 0.12);
 }
 
 .nav-links a.active::after {
-  width: 56%;
+  width: 58%;
 }
 
 .menu-toggle {
@@ -805,12 +886,111 @@ body {
   border-color: rgba(65, 184, 255, 0.22);
 }
 
-.contact-card {
+/* ===== Contact modern cards ===== */
+
+.contact-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  right: -80px;
+  top: -80px;
+  background: radial-gradient(circle, rgba(65, 184, 255, 0.13), transparent 65%);
+  pointer-events: none;
+}
+
+.contact-card,
+.contact-card-modern {
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(65, 184, 255, 0.20);
+  background:
+    linear-gradient(135deg, rgba(65, 184, 255, 0.08), rgba(255, 158, 135, 0.05)),
+    rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.26),
+    0 0 34px rgba(65, 184, 255, 0.08);
+}
+
+.contact-card-modern::before,
+.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  transform: translateX(-120%);
+  animation: contactSweep 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.contact-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.contact-info-item {
+  padding: 22px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: left;
+  transition: 0.35s ease;
+}
+
+.contact-info-item:hover {
+  transform: translateY(-6px);
+  border-color: rgba(65, 184, 255, 0.24);
+  background: rgba(65, 184, 255, 0.07);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+}
+
+.contact-info-item i {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  background: rgba(65, 184, 255, 0.12);
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.contact-info-item span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.contact-info-item strong {
+  color: #ffffff;
+  font-size: 1rem;
 }
 
 .contact-card p {
   margin-bottom: 12px;
+}
+
+.contact-card strong {
+  color: #ffffff;
 }
 
 .contact-buttons {
@@ -819,6 +999,36 @@ body {
   gap: 18px;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.contact-buttons .btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-buttons .btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -90%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.24),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: 0.6s ease;
+}
+
+.contact-buttons .btn:hover::before {
+  left: 120%;
+}
+
+.contact-buttons .btn:hover {
+  transform: translateY(-5px) scale(1.03);
 }
 
 .footer {
@@ -921,6 +1131,79 @@ body {
   }
 }
 
+@keyframes navGlowLine {
+  0% {
+    left: -35%;
+  }
+  100% {
+    left: 105%;
+  }
+}
+
+@keyframes logoDotPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 1;
+  }
+}
+
+@keyframes contactSweep {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  65% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+/* ===== App project image/video fix ===== */
+
+.compact-video-card .app-video-box {
+  min-height: 360px;
+  padding: 14px;
+}
+
+.compact-video-card .app-demo-video {
+  max-width: 240px;
+  height: 390px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.feature-app-card .feature-image-box {
+  min-height: auto;
+  padding: 0;
+  display: block;
+  background: #0b1120;
+  overflow: hidden;
+}
+
+.feature-app-card .app-feature-image {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: contain;
+  display: block;
+  background: #0b1120;
+}
+
+.feature-app-card:hover .app-feature-image {
+  transform: none;
+}
+
 @media (max-width: 1100px) {
   .hero {
     grid-template-columns: 1fr;
@@ -951,6 +1234,10 @@ body {
   }
 
   .projects-grid-enhanced {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1110,8 +1397,27 @@ body {
     height: 520px;
   }
 
+  .compact-video-card .app-video-box {
+    min-height: 320px;
+    padding: 12px;
+  }
+
+  .compact-video-card .app-demo-video {
+    max-width: 210px;
+    height: 340px;
+  }
+
+  .feature-app-card .app-feature-image {
+    max-height: none;
+    height: auto;
+  }
+
   .app-action-buttons {
     flex-direction: column;
+  }
+
+  .contact-info-item {
+    justify-content: flex-start;
   }
 }
 
@@ -1210,6 +1516,16 @@ body {
     height: 420px;
   }
 
+  .compact-video-card .app-demo-video {
+    max-width: 200px;
+    height: 330px;
+  }
+
+  .contact-info-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
   .whatsapp-float {
     width: 52px;
     height: 52px;
@@ -1221,5 +1537,17 @@ body {
   .nav-links {
     right: 14px;
     width: calc(100% - 28px);
+  }
+
+  .logo {
+    font-size: 1.55rem;
+    gap: 8px;
+  }
+
+  .logo::before {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    font-size: 0.85rem;
   }
 }
