@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://masumtechdev.github.io/portfolio/sitemap.xml
