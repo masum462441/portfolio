@@ -2,79 +2,135 @@
 
 /* =========================================================
    MASUM TECHNICAL SUPPORT BANGLADESH
-   FINAL PORTFOLIO SCRIPT
-   ========================================================= */
+   FINAL PREMIUM PORTFOLIO SCRIPT
+   HISABFLOW 2.0 DEMO MODAL
+========================================================= */
 
 
 /* =========================================================
    CONFIG
-   ========================================================= */
+========================================================= */
 
 const CONFIG = {
-  fullName: "Md Raqibul Islam Masum",
-  whatsappNumber: "8801820806464",
 
-  typingSpeed: 52,
+  fullName:
+    "Md Raqibul Islam Masum",
 
-  introDuration: 1650,
-  introExitDuration: 520,
+  whatsappNumber:
+    "8801820806464",
 
-  navOffset: 125
+  typingSpeed:
+    52,
+
+  introDuration:
+    1650,
+
+  introExitDuration:
+    520,
+
+  navOffset:
+    125
+
 };
 
 
 /* =========================================================
    ELEMENT REFERENCES
-   ========================================================= */
+========================================================= */
 
-const body = document.body;
+const body =
+  document.body;
+
 
 const navbar =
-  document.getElementById("navbar");
+  document.getElementById(
+    "navbar"
+  );
+
 
 const navLinksContainer =
-  document.getElementById("navLinks");
+  document.getElementById(
+    "navLinks"
+  );
+
 
 const navLinks =
   document.querySelectorAll(
     '.nav-links a[href^="#"]'
   );
 
+
 const menuToggle =
-  document.getElementById("menuToggle");
+  document.getElementById(
+    "menuToggle"
+  );
+
 
 const menuClose =
-  document.getElementById("menuClose");
+  document.getElementById(
+    "menuClose"
+  );
+
 
 const navOverlay =
-  document.getElementById("navOverlay");
+  document.getElementById(
+    "navOverlay"
+  );
+
 
 const themeToggle =
-  document.getElementById("themeToggle");
+  document.getElementById(
+    "themeToggle"
+  );
+
 
 const typingTarget =
-  document.getElementById("typing-name");
+  document.getElementById(
+    "typing-name"
+  );
+
 
 const sections =
-  document.querySelectorAll("section[id]");
+  document.querySelectorAll(
+    "section[id]"
+  );
+
 
 const revealElements =
-  document.querySelectorAll(".reveal");
+  document.querySelectorAll(
+    ".reveal"
+  );
+
 
 const tabButtons =
-  document.querySelectorAll(".tab-btn");
+  document.querySelectorAll(
+    ".tab-btn"
+  );
+
 
 const tabPanels =
-  document.querySelectorAll(".tab-panel");
+  document.querySelectorAll(
+    ".tab-panel"
+  );
+
 
 const contactForm =
-  document.getElementById("contactForm");
+  document.getElementById(
+    "contactForm"
+  );
+
 
 const backToTop =
-  document.getElementById("backToTop");
+  document.getElementById(
+    "backToTop"
+  );
+
 
 const currentYear =
-  document.getElementById("currentYear");
+  document.getElementById(
+    "currentYear"
+  );
+
 
 const themeColorMeta =
   document.querySelector(
@@ -83,19 +139,64 @@ const themeColorMeta =
 
 
 /* =========================================================
-   SCROLL RESTORATION
-   ========================================================= */
+   HISABFLOW ELEMENTS
+========================================================= */
 
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
+const watchHisabFlowDemo =
+  document.getElementById(
+    "watchHisabFlowDemo"
+  );
+
+
+const hisabflowDemoModal =
+  document.getElementById(
+    "hisabflowDemoModal"
+  );
+
+
+const closeHisabFlowDemo =
+  document.getElementById(
+    "closeHisabFlowDemo"
+  );
+
+
+const hisabflowDemoVideo =
+  document.getElementById(
+    "hisabflowDemoVideo"
+  );
+
+
+const hisabflowCloseTargets =
+  document.querySelectorAll(
+    "[data-hisabflow-close]"
+  );
+
+
+let lastFocusedElement =
+  null;
+
+
+/* =========================================================
+   SCROLL RESTORATION
+========================================================= */
+
+if (
+  "scrollRestoration" in history
+) {
+
+  history.scrollRestoration =
+    "manual";
+
 }
 
 
 /* =========================================================
    INITIALIZE
-   ========================================================= */
+========================================================= */
 
-if (document.readyState === "loading") {
+if (
+  document.readyState === "loading"
+) {
 
   document.addEventListener(
     "DOMContentLoaded",
@@ -108,6 +209,10 @@ if (document.readyState === "loading") {
 
 }
 
+
+/* =========================================================
+   MAIN INITIALIZER
+========================================================= */
 
 function initializePortfolio() {
 
@@ -135,6 +240,8 @@ function initializePortfolio() {
 
   setupScrollEffects();
 
+  setupHisabFlowDemo();
+
   updateCurrentYear();
 
   startUniqueIntro();
@@ -143,14 +250,16 @@ function initializePortfolio() {
 
 
 /* =========================================================
-   FORCE HOME / TOP ON LOAD
-   ========================================================= */
+   FORCE HOME / TOP ON PAGE LOAD
+========================================================= */
 
 function forceHomeOnLoad() {
 
   try {
 
-    if (window.location.hash) {
+    if (
+      window.location.hash
+    ) {
 
       history.replaceState(
         null,
@@ -171,29 +280,39 @@ function forceHomeOnLoad() {
 
 
   window.scrollTo({
+
     top: 0,
+
     left: 0,
+
     behavior: "auto"
-  });
-
-
-  requestAnimationFrame(() => {
-
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto"
-    });
 
   });
+
+
+  requestAnimationFrame(
+    () => {
+
+      window.scrollTo({
+
+        top: 0,
+
+        left: 0,
+
+        behavior: "auto"
+
+      });
+
+    }
+  );
 
 }
 
 
 /* =========================================================
    UNIQUE PORTFOLIO INTRO
-   Shows on EVERY page load
-   ========================================================= */
+   SHOWS ON EVERY PAGE LOAD
+========================================================= */
 
 function startUniqueIntro() {
 
@@ -203,9 +322,17 @@ function startUniqueIntro() {
     ).matches;
 
 
-  if (reduceMotion) {
+  if (
+    reduceMotion
+  ) {
 
     startTypingEffect();
+
+    document
+      .getElementById("home")
+      ?.classList.add(
+        "active-reveal"
+      );
 
     return;
 
@@ -215,17 +342,15 @@ function startUniqueIntro() {
   createIntroStyles();
 
 
-  /*
-    পুরোনো intro element থাকলে remove
-  */
-
   const oldIntro =
     document.getElementById(
       "masumUniqueIntro"
     );
 
 
-  if (oldIntro) {
+  if (
+    oldIntro
+  ) {
 
     oldIntro.remove();
 
@@ -233,7 +358,9 @@ function startUniqueIntro() {
 
 
   const intro =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   intro.id =
@@ -247,11 +374,14 @@ function startUniqueIntro() {
   intro.innerHTML = `
 
     <div class="entry-background-shape shape-a"></div>
+
     <div class="entry-background-shape shape-b"></div>
 
     <div class="entry-grid"></div>
 
+
     <div class="entry-container">
+
 
       <div class="entry-logo-area">
 
@@ -318,12 +448,16 @@ function startUniqueIntro() {
 
       </div>
 
+
     </div>
 
   `;
 
 
-  body.appendChild(intro);
+  body.appendChild(
+    intro
+  );
+
 
   body.classList.add(
     "intro-active"
@@ -331,73 +465,80 @@ function startUniqueIntro() {
 
 
   /*
-    দুই frame delay দিলে browser
-    initial animation properly render করে
+    Two-frame delay ensures
+    browser renders the initial
+    animation state correctly.
   */
 
-  requestAnimationFrame(() => {
+  requestAnimationFrame(
+    () => {
 
-    requestAnimationFrame(() => {
+      requestAnimationFrame(
+        () => {
 
-      intro.classList.add(
-        "entry-show"
+          intro.classList.add(
+            "entry-show"
+          );
+
+        }
       );
 
-    });
-
-  });
+    }
+  );
 
 
   /*
-    Intro exit
+    Exit intro after configured time.
   */
 
-  setTimeout(() => {
+  setTimeout(
+    () => {
 
-    intro.classList.add(
-      "entry-exit"
-    );
-
-
-    setTimeout(() => {
-
-      body.classList.remove(
-        "intro-active"
+      intro.classList.add(
+        "entry-exit"
       );
 
 
-      intro.remove();
+      setTimeout(
+        () => {
+
+          body.classList.remove(
+            "intro-active"
+          );
 
 
-      startTypingEffect();
+          intro.remove();
 
 
-      /*
-        Hero section immediately visible করা
-        যাতে intro শেষ হওয়ার পর blank না লাগে
-      */
-
-      const homeSection =
-        document.getElementById("home");
+          startTypingEffect();
 
 
-      homeSection?.classList.add(
-        "active-reveal"
+          document
+            .getElementById("home")
+            ?.classList.add(
+              "active-reveal"
+            );
+
+
+        },
+
+        CONFIG.introExitDuration
+
       );
 
+    },
 
-    }, CONFIG.introExitDuration);
+    CONFIG.introDuration
 
-
-  }, CONFIG.introDuration);
+  );
 
 }
 
 
 /* =========================================================
    UNIQUE INTRO STYLES
-   Injected from JS
-   ========================================================= */
+   INJECTED ONLY ONCE
+========================================================= */
 
 function createIntroStyles() {
 
@@ -413,7 +554,9 @@ function createIntroStyles() {
 
 
   const style =
-    document.createElement("style");
+    document.createElement(
+      "style"
+    );
 
 
   style.id =
@@ -423,41 +566,52 @@ function createIntroStyles() {
   style.textContent = `
 
     body.intro-active {
-      overflow: hidden !important;
+
+      overflow:
+        hidden !important;
+
     }
 
 
-    /* ==============================
+    /* ==========================================
        INTRO SCREEN
-    ============================== */
+    ========================================== */
 
     .masum-entry-screen {
 
-      position: fixed;
+      position:
+        fixed;
 
-      inset: 0;
+      inset:
+        0;
 
-      z-index: 999999;
+      z-index:
+        999999;
 
-      display: flex;
+      display:
+        flex;
 
-      align-items: center;
+      align-items:
+        center;
 
-      justify-content: center;
+      justify-content:
+        center;
 
-      padding: 24px;
+      padding:
+        24px;
 
-      overflow: hidden;
+      overflow:
+        hidden;
 
       background:
         radial-gradient(
           circle at 18% 16%,
-          rgba(47, 109, 246, 0.15),
+          rgba(47,109,246,0.15),
           transparent 28%
         ),
         radial-gradient(
           circle at 82% 82%,
-          rgba(22, 185, 129, 0.13),
+          rgba(22,185,129,0.13),
           transparent 30%
         ),
         linear-gradient(
@@ -466,9 +620,11 @@ function createIntroStyles() {
           #f3f7ff
         );
 
-      opacity: 0;
+      opacity:
+        0;
 
-      visibility: hidden;
+      visibility:
+        hidden;
 
       transition:
         opacity 0.35s ease,
@@ -484,12 +640,12 @@ function createIntroStyles() {
       background:
         radial-gradient(
           circle at 18% 16%,
-          rgba(100, 143, 255, 0.18),
+          rgba(100,143,255,0.18),
           transparent 28%
         ),
         radial-gradient(
           circle at 82% 82%,
-          rgba(55, 212, 156, 0.12),
+          rgba(55,212,156,0.12),
           transparent 30%
         ),
         linear-gradient(
@@ -503,47 +659,57 @@ function createIntroStyles() {
 
     .masum-entry-screen.entry-show {
 
-      opacity: 1;
+      opacity:
+        1;
 
-      visibility: visible;
+      visibility:
+        visible;
 
     }
 
 
     .masum-entry-screen.entry-exit {
 
-      opacity: 0;
+      opacity:
+        0;
+
+      visibility:
+        hidden;
 
       transform:
         scale(1.035);
 
-      visibility: hidden;
-
     }
 
 
-    /* ==============================
+    /* ==========================================
        GRID BACKGROUND
-    ============================== */
+    ========================================== */
 
     .entry-grid {
 
-      position: absolute;
+      position:
+        absolute;
 
-      inset: 0;
+      inset:
+        0;
 
-      opacity: 0.38;
+      opacity:
+        0.38;
 
-      pointer-events: none;
+      pointer-events:
+        none;
 
       background-image:
+
         linear-gradient(
-          rgba(47, 109, 246, 0.045) 1px,
+          rgba(47,109,246,0.045) 1px,
           transparent 1px
         ),
+
         linear-gradient(
           90deg,
-          rgba(47, 109, 246, 0.045) 1px,
+          rgba(47,109,246,0.045) 1px,
           transparent 1px
         );
 
@@ -571,33 +737,38 @@ function createIntroStyles() {
     .entry-grid {
 
       background-image:
+
         linear-gradient(
-          rgba(255, 255, 255, 0.035) 1px,
+          rgba(255,255,255,0.035) 1px,
           transparent 1px
         ),
+
         linear-gradient(
           90deg,
-          rgba(255, 255, 255, 0.035) 1px,
+          rgba(255,255,255,0.035) 1px,
           transparent 1px
         );
 
     }
 
 
-    /* ==============================
-       BACKGROUND ORBS
-    ============================== */
+    /* ==========================================
+       BACKGROUND SHAPES
+    ========================================== */
 
     .entry-background-shape {
 
-      position: absolute;
+      position:
+        absolute;
 
-      border-radius: 50%;
+      border-radius:
+        50%;
 
       filter:
         blur(60px);
 
-      pointer-events: none;
+      pointer-events:
+        none;
 
       animation:
         entryOrbFloat
@@ -610,32 +781,40 @@ function createIntroStyles() {
 
     .shape-a {
 
-      width: 320px;
+      width:
+        320px;
 
-      height: 320px;
+      height:
+        320px;
 
-      left: -130px;
+      left:
+        -130px;
 
-      top: -90px;
+      top:
+        -90px;
 
       background:
-        rgba(47, 109, 246, 0.13);
+        rgba(47,109,246,0.13);
 
     }
 
 
     .shape-b {
 
-      width: 320px;
+      width:
+        320px;
 
-      height: 320px;
+      height:
+        320px;
 
-      right: -120px;
+      right:
+        -120px;
 
-      bottom: -100px;
+      bottom:
+        -100px;
 
       background:
-        rgba(22, 185, 129, 0.11);
+        rgba(22,185,129,0.11);
 
       animation-delay:
         0.8s;
@@ -643,15 +822,17 @@ function createIntroStyles() {
     }
 
 
-    /* ==============================
+    /* ==========================================
        INTRO CONTENT
-    ============================== */
+    ========================================== */
 
     .entry-container {
 
-      position: relative;
+      position:
+        relative;
 
-      z-index: 5;
+      z-index:
+        5;
 
       width:
         min(
@@ -659,15 +840,20 @@ function createIntroStyles() {
           620px
         );
 
-      display: flex;
+      display:
+        flex;
 
-      flex-direction: column;
+      flex-direction:
+        column;
 
-      align-items: center;
+      align-items:
+        center;
 
-      text-align: center;
+      text-align:
+        center;
 
-      opacity: 0;
+      opacity:
+        0;
 
       transform:
         translateY(18px)
@@ -688,48 +874,64 @@ function createIntroStyles() {
     }
 
 
-    /* ==============================
-       LOGO
-    ============================== */
+    /* ==========================================
+       INTRO LOGO
+    ========================================== */
 
     .entry-logo-area {
 
-      position: relative;
+      position:
+        relative;
 
-      width: 112px;
+      width:
+        112px;
 
-      height: 112px;
+      height:
+        112px;
 
-      margin-bottom: 22px;
+      margin-bottom:
+        22px;
 
-      display: flex;
+      display:
+        flex;
 
-      align-items: center;
+      align-items:
+        center;
 
-      justify-content: center;
+      justify-content:
+        center;
 
     }
 
 
     .entry-logo {
 
-      position: relative;
+      position:
+        relative;
 
-      z-index: 6;
+      z-index:
+        6;
 
-      width: 72px;
+      width:
+        72px;
 
-      height: 72px;
+      height:
+        72px;
 
-      display: flex;
+      display:
+        flex;
 
-      align-items: center;
+      align-items:
+        center;
 
-      justify-content: center;
+      justify-content:
+        center;
 
-      border-radius: 22px;
+      border-radius:
+        22px;
 
-      color: #ffffff;
+      color:
+        #ffffff;
 
       background:
         linear-gradient(
@@ -740,15 +942,17 @@ function createIntroStyles() {
 
       box-shadow:
         0 18px 45px
-        rgba(47, 109, 246, 0.30);
+        rgba(47,109,246,0.30);
 
       font-family:
         "Inter",
         sans-serif;
 
-      font-size: 2rem;
+      font-size:
+        2rem;
 
-      font-weight: 900;
+      font-weight:
+        900;
 
       animation:
         entryLogoReveal
@@ -766,39 +970,47 @@ function createIntroStyles() {
 
     .entry-logo::after {
 
-      content: "";
+      content:
+        "";
 
-      position: absolute;
+      position:
+        absolute;
 
-      inset: 6px;
+      inset:
+        6px;
 
       border:
         1px solid
-        rgba(255, 255, 255, 0.20);
+        rgba(255,255,255,0.20);
 
-      border-radius: 17px;
+      border-radius:
+        17px;
 
     }
 
 
     .entry-logo-ring {
 
-      position: absolute;
+      position:
+        absolute;
 
-      border-radius: 50%;
+      border-radius:
+        50%;
 
       border:
         1px solid
-        rgba(47, 109, 246, 0.20);
+        rgba(47,109,246,0.20);
 
     }
 
 
     .ring-one {
 
-      width: 94px;
+      width:
+        94px;
 
-      height: 94px;
+      height:
+        94px;
 
       animation:
         entryRingOne
@@ -811,13 +1023,17 @@ function createIntroStyles() {
 
     .ring-two {
 
-      width: 110px;
+      width:
+        110px;
 
-      height: 110px;
+      height:
+        110px;
 
-      border-style: dashed;
+      border-style:
+        dashed;
 
-      opacity: 0.55;
+      opacity:
+        0.55;
 
       animation:
         entryRingTwo
@@ -830,28 +1046,37 @@ function createIntroStyles() {
 
     .entry-online-dot {
 
-      position: absolute;
+      position:
+        absolute;
 
-      right: 9px;
+      right:
+        9px;
 
-      top: 10px;
+      top:
+        10px;
 
-      z-index: 8;
+      z-index:
+        8;
 
-      width: 12px;
+      width:
+        12px;
 
-      height: 12px;
+      height:
+        12px;
 
-      border-radius: 50%;
+      border-radius:
+        50%;
 
       background:
         #16b981;
 
       box-shadow:
+
         0 0 0 6px
-        rgba(22, 185, 129, 0.11),
+        rgba(22,185,129,0.11),
+
         0 0 20px
-        rgba(22, 185, 129, 0.55);
+        rgba(22,185,129,0.55);
 
       animation:
         entryDotPulse
@@ -862,13 +1087,14 @@ function createIntroStyles() {
     }
 
 
-    /* ==============================
-       TEXT
-    ============================== */
+    /* ==========================================
+       INTRO TEXT
+    ========================================== */
 
     .entry-welcome {
 
-      margin-bottom: 7px;
+      margin-bottom:
+        7px;
 
       color:
         #7d8999;
@@ -886,7 +1112,8 @@ function createIntroStyles() {
       letter-spacing:
         3.6px;
 
-      opacity: 0;
+      opacity:
+        0;
 
       animation:
         entryTextUp
@@ -909,15 +1136,20 @@ function createIntroStyles() {
 
     .entry-brand {
 
-      display: flex;
+      display:
+        flex;
 
-      align-items: center;
+      align-items:
+        center;
 
-      justify-content: center;
+      justify-content:
+        center;
 
-      gap: 9px;
+      gap:
+        9px;
 
-      margin: 0;
+      margin:
+        0;
 
       color:
         #101828;
@@ -942,7 +1174,8 @@ function createIntroStyles() {
       line-height:
         1.1;
 
-      opacity: 0;
+      opacity:
+        0;
 
       animation:
         entryBrandReveal
@@ -992,34 +1225,40 @@ function createIntroStyles() {
 
     .entry-divider {
 
-      width: 145px;
+      width:
+        145px;
 
-      height: 2px;
+      height:
+        2px;
 
       margin:
-        14px
-        0;
+        14px 0;
 
-      overflow: hidden;
+      overflow:
+        hidden;
 
       border-radius:
         999px;
 
       background:
-        rgba(47, 109, 246, 0.08);
+        rgba(47,109,246,0.08);
 
     }
 
 
     .entry-divider span {
 
-      display: block;
+      display:
+        block;
 
-      width: 0;
+      width:
+        0;
 
-      height: 100%;
+      height:
+        100%;
 
-      border-radius: inherit;
+      border-radius:
+        inherit;
 
       background:
         linear-gradient(
@@ -1058,7 +1297,8 @@ function createIntroStyles() {
       font-weight:
         800;
 
-      opacity: 0;
+      opacity:
+        0;
 
       transform:
         translateY(8px);
@@ -1101,7 +1341,8 @@ function createIntroStyles() {
           0.82rem
         );
 
-      opacity: 0;
+      opacity:
+        0;
 
       animation:
         entryTextUp
@@ -1122,9 +1363,9 @@ function createIntroStyles() {
     }
 
 
-    /* ==============================
+    /* ==========================================
        READY BADGE
-    ============================== */
+    ========================================== */
 
     .entry-ready {
 
@@ -1132,8 +1373,7 @@ function createIntroStyles() {
         18px;
 
       padding:
-        7px
-        12px;
+        7px 12px;
 
       display:
         inline-flex;
@@ -1146,7 +1386,7 @@ function createIntroStyles() {
 
       border:
         1px solid
-        rgba(22, 185, 129, 0.15);
+        rgba(22,185,129,0.15);
 
       border-radius:
         999px;
@@ -1155,7 +1395,7 @@ function createIntroStyles() {
         #07845d;
 
       background:
-        rgba(22, 185, 129, 0.08);
+        rgba(22,185,129,0.08);
 
       font-family:
         "Inter",
@@ -1167,7 +1407,8 @@ function createIntroStyles() {
       font-weight:
         800;
 
-      opacity: 0;
+      opacity:
+        0;
 
       animation:
         entryTextUp
@@ -1204,14 +1445,14 @@ function createIntroStyles() {
 
       box-shadow:
         0 0 0 4px
-        rgba(22, 185, 129, 0.10);
+        rgba(22,185,129,0.10);
 
     }
 
 
-    /* ==============================
-       PROGRESS
-    ============================== */
+    /* ==========================================
+       PROGRESS BAR
+    ========================================== */
 
     .entry-progress {
 
@@ -1231,7 +1472,7 @@ function createIntroStyles() {
         999px;
 
       background:
-        rgba(47, 109, 246, 0.09);
+        rgba(47,109,246,0.09);
 
     }
 
@@ -1273,15 +1514,16 @@ function createIntroStyles() {
     }
 
 
-    /* ==============================
-       KEYFRAMES
-    ============================== */
+    /* ==========================================
+       INTRO KEYFRAMES
+    ========================================== */
 
     @keyframes entryContainerReveal {
 
       from {
 
-        opacity: 0;
+        opacity:
+          0;
 
         transform:
           translateY(18px)
@@ -1289,10 +1531,10 @@ function createIntroStyles() {
 
       }
 
-
       to {
 
-        opacity: 1;
+        opacity:
+          1;
 
         transform:
           translateY(0)
@@ -1307,7 +1549,8 @@ function createIntroStyles() {
 
       0% {
 
-        opacity: 0;
+        opacity:
+          0;
 
         transform:
           scale(0.55)
@@ -1315,10 +1558,10 @@ function createIntroStyles() {
 
       }
 
-
       70% {
 
-        opacity: 1;
+        opacity:
+          1;
 
         transform:
           scale(1.08)
@@ -1326,10 +1569,10 @@ function createIntroStyles() {
 
       }
 
-
       100% {
 
-        opacity: 1;
+        opacity:
+          1;
 
         transform:
           scale(1)
@@ -1377,7 +1620,6 @@ function createIntroStyles() {
 
       }
 
-
       50% {
 
         transform:
@@ -1402,7 +1644,6 @@ function createIntroStyles() {
           translateY(8px);
 
       }
-
 
       to {
 
@@ -1433,7 +1674,6 @@ function createIntroStyles() {
 
       }
 
-
       to {
 
         opacity:
@@ -1454,12 +1694,17 @@ function createIntroStyles() {
     @keyframes entryDividerGrow {
 
       from {
-        width: 0;
+
+        width:
+          0;
+
       }
 
-
       to {
-        width: 100%;
+
+        width:
+          100%;
+
       }
 
     }
@@ -1468,12 +1713,17 @@ function createIntroStyles() {
     @keyframes entryProgress {
 
       from {
-        width: 0%;
+
+        width:
+          0%;
+
       }
 
-
       to {
-        width: 100%;
+
+        width:
+          100%;
+
       }
 
     }
@@ -1493,7 +1743,6 @@ function createIntroStyles() {
 
       }
 
-
       50% {
 
         transform:
@@ -1508,9 +1757,9 @@ function createIntroStyles() {
     }
 
 
-    /* ==============================
+    /* ==========================================
        MOBILE INTRO
-    ============================== */
+    ========================================== */
 
     @media (max-width: 520px) {
 
@@ -1627,7 +1876,10 @@ function createIntroStyles() {
     }
 
 
-    @media (prefers-reduced-motion: reduce) {
+    @media (
+      prefers-reduced-motion:
+      reduce
+    ) {
 
       .masum-entry-screen,
       .masum-entry-screen * {
@@ -1654,16 +1906,24 @@ function createIntroStyles() {
 
 /* =========================================================
    NAME TYPING EFFECT
-   ========================================================= */
+========================================================= */
 
-let typingIndex = 0;
-let typingTimer = null;
+let typingIndex =
+  0;
+
+
+let typingTimer =
+  null;
 
 
 function startTypingEffect() {
 
-  if (!typingTarget) {
+  if (
+    !typingTarget
+  ) {
+
     return;
+
   }
 
 
@@ -1672,9 +1932,12 @@ function startTypingEffect() {
   );
 
 
-  typingTarget.textContent = "";
+  typingTarget.textContent =
+    "";
 
-  typingIndex = 0;
+
+  typingIndex =
+    0;
 
 
   const reduceMotion =
@@ -1683,7 +1946,9 @@ function startTypingEffect() {
     ).matches;
 
 
-  if (reduceMotion) {
+  if (
+    reduceMotion
+  ) {
 
     typingTarget.textContent =
       CONFIG.fullName;
@@ -1730,11 +1995,12 @@ function startTypingEffect() {
 
 /* =========================================================
    THEME
-   ========================================================= */
+========================================================= */
 
 function setupTheme() {
 
-  let savedTheme = null;
+  let savedTheme =
+    null;
 
 
   try {
@@ -1746,12 +2012,15 @@ function setupTheme() {
 
   } catch (error) {
 
-    savedTheme = null;
+    savedTheme =
+      null;
 
   }
 
 
-  if (savedTheme === "dark") {
+  if (
+    savedTheme === "dark"
+  ) {
 
     body.classList.add(
       "dark-theme"
@@ -1763,8 +2032,12 @@ function setupTheme() {
   updateThemeUI();
 
 
-  if (!themeToggle) {
+  if (
+    !themeToggle
+  ) {
+
     return;
+
   }
 
 
@@ -1794,7 +2067,9 @@ function setupTheme() {
 
       } catch (error) {
 
-        /* No problem */
+        /*
+          Ignore local storage error.
+        */
 
       }
 
@@ -1807,10 +2082,18 @@ function setupTheme() {
 }
 
 
+/* =========================================================
+   UPDATE THEME UI
+========================================================= */
+
 function updateThemeUI() {
 
-  if (!themeToggle) {
+  if (
+    !themeToggle
+  ) {
+
     return;
+
   }
 
 
@@ -1821,10 +2104,14 @@ function updateThemeUI() {
 
 
   const icon =
-    themeToggle.querySelector("i");
+    themeToggle.querySelector(
+      "i"
+    );
 
 
-  if (icon) {
+  if (
+    icon
+  ) {
 
     icon.className =
       isDark
@@ -1835,20 +2122,28 @@ function updateThemeUI() {
 
 
   themeToggle.setAttribute(
+
     "aria-label",
+
     isDark
       ? "Switch to light mode"
       : "Switch to dark mode"
+
   );
 
 
-  if (themeColorMeta) {
+  if (
+    themeColorMeta
+  ) {
 
     themeColorMeta.setAttribute(
+
       "content",
+
       isDark
         ? "#0b111b"
         : "#f8fbff"
+
     );
 
   }
@@ -1858,7 +2153,7 @@ function updateThemeUI() {
 
 /* =========================================================
    MOBILE MENU
-   ========================================================= */
+========================================================= */
 
 function setupMobileMenu() {
 
@@ -1877,9 +2172,9 @@ function setupMobileMenu() {
     () => {
 
       if (
-        navLinksContainer.classList.contains(
-          "show"
-        )
+        navLinksContainer
+          .classList
+          .contains("show")
       ) {
 
         closeMobileMenu();
@@ -1910,7 +2205,10 @@ function setupMobileMenu() {
     "keydown",
     event => {
 
-      if (event.key === "Escape") {
+      if (
+        event.key === "Escape" &&
+        !isHisabFlowModalOpen()
+      ) {
 
         closeMobileMenu();
 
@@ -1921,7 +2219,9 @@ function setupMobileMenu() {
 
 
   window.addEventListener(
+
     "resize",
+
     () => {
 
       if (
@@ -1933,61 +2233,87 @@ function setupMobileMenu() {
       }
 
     },
+
     {
       passive: true
     }
-  );
 
-}
-
-
-function openMobileMenu() {
-
-  navLinksContainer?.classList.add(
-    "show"
-  );
-
-  navOverlay?.classList.add(
-    "show"
-  );
-
-  body.classList.add(
-    "menu-open"
-  );
-
-  menuToggle?.setAttribute(
-    "aria-expanded",
-    "true"
-  );
-
-}
-
-
-function closeMobileMenu() {
-
-  navLinksContainer?.classList.remove(
-    "show"
-  );
-
-  navOverlay?.classList.remove(
-    "show"
-  );
-
-  body.classList.remove(
-    "menu-open"
-  );
-
-  menuToggle?.setAttribute(
-    "aria-expanded",
-    "false"
   );
 
 }
 
 
 /* =========================================================
+   OPEN MOBILE MENU
+========================================================= */
+
+function openMobileMenu() {
+
+  navLinksContainer
+    ?.classList
+    .add(
+      "show"
+    );
+
+
+  navOverlay
+    ?.classList
+    .add(
+      "show"
+    );
+
+
+  body.classList.add(
+    "menu-open"
+  );
+
+
+  menuToggle
+    ?.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MOBILE MENU
+========================================================= */
+
+function closeMobileMenu() {
+
+  navLinksContainer
+    ?.classList
+    .remove(
+      "show"
+    );
+
+
+  navOverlay
+    ?.classList
+    .remove(
+      "show"
+    );
+
+
+  body.classList.remove(
+    "menu-open"
+  );
+
+
+  menuToggle
+    ?.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
+}
+
+
+/* =========================================================
    SMOOTH NAVIGATION
-   ========================================================= */
+========================================================= */
 
 function setupSmoothNavigation() {
 
@@ -1997,132 +2323,164 @@ function setupSmoothNavigation() {
     );
 
 
-  internalLinks.forEach(link => {
+  internalLinks.forEach(
+    link => {
 
-    link.addEventListener(
-      "click",
-      event => {
+      link.addEventListener(
+        "click",
+        event => {
 
-        const targetID =
-          link.getAttribute("href");
+          const targetID =
+            link.getAttribute(
+              "href"
+            );
 
 
-        if (!targetID) {
-          return;
+          if (
+            !targetID
+          ) {
+
+            return;
+
+          }
+
+
+          const target =
+            document.querySelector(
+              targetID
+            );
+
+
+          if (
+            !target
+          ) {
+
+            return;
+
+          }
+
+
+          event.preventDefault();
+
+
+          closeMobileMenu();
+
+
+          const navbarHeight =
+            navbar?.offsetHeight ||
+            75;
+
+
+          const targetTop =
+            target
+              .getBoundingClientRect()
+              .top +
+            window.scrollY -
+            navbarHeight -
+            12;
+
+
+          window.scrollTo({
+
+            top:
+              targetTop,
+
+            behavior:
+              "smooth"
+
+          });
+
+
+          /*
+            Keep URL clean.
+          */
+
+          try {
+
+            history.replaceState(
+
+              null,
+
+              "",
+
+              window.location.pathname +
+              window.location.search
+
+            );
+
+          } catch (error) {
+
+            /*
+              Ignore history error.
+            */
+
+          }
+
         }
+      );
 
-
-        const target =
-          document.querySelector(
-            targetID
-          );
-
-
-        if (!target) {
-          return;
-        }
-
-
-        event.preventDefault();
-
-
-        closeMobileMenu();
-
-
-        const navbarHeight =
-          navbar?.offsetHeight || 75;
-
-
-        const targetTop =
-          target
-            .getBoundingClientRect()
-            .top +
-          window.scrollY -
-          navbarHeight -
-          12;
-
-
-        window.scrollTo({
-
-          top: targetTop,
-
-          behavior: "smooth"
-
-        });
-
-
-        /*
-          URL clean থাকবে।
-          #contact / #projects থাকবে না।
-        */
-
-        try {
-
-          history.replaceState(
-            null,
-            "",
-            window.location.pathname +
-            window.location.search
-          );
-
-        } catch (error) {
-
-          /* Ignore */
-
-        }
-
-      }
-    );
-
-  });
+    }
+  );
 
 }
 
 
 /* =========================================================
    SCROLL EFFECTS
-   ========================================================= */
+========================================================= */
 
 function setupScrollEffects() {
 
-  let ticking = false;
+  let ticking =
+    false;
 
 
   function updateScrollState() {
 
     const scrollY =
       window.scrollY ||
-      document.documentElement.scrollTop;
+      document.documentElement
+        .scrollTop;
 
 
-    navbar?.classList.toggle(
-      "scrolled",
-      scrollY > 30
-    );
+    navbar
+      ?.classList
+      .toggle(
+        "scrolled",
+        scrollY > 30
+      );
 
 
-    backToTop?.classList.toggle(
-      "show",
-      scrollY > 500
-    );
+    backToTop
+      ?.classList
+      .toggle(
+        "show",
+        scrollY > 500
+      );
 
 
     updateActiveNavigation();
 
 
-    ticking = false;
+    ticking =
+      false;
 
   }
 
 
   function onScroll() {
 
-    if (ticking) {
+    if (
+      ticking
+    ) {
+
       return;
+
     }
 
 
-    ticking = true;
+    ticking =
+      true;
 
 
     requestAnimationFrame(
@@ -2133,11 +2491,15 @@ function setupScrollEffects() {
 
 
   window.addEventListener(
+
     "scroll",
+
     onScroll,
+
     {
       passive: true
     }
+
   );
 
 
@@ -2148,12 +2510,16 @@ function setupScrollEffects() {
 
 /* =========================================================
    ACTIVE NAVIGATION
-   ========================================================= */
+========================================================= */
 
 function updateActiveNavigation() {
 
-  if (!sections.length) {
+  if (
+    !sections.length
+  ) {
+
     return;
+
   }
 
 
@@ -2166,43 +2532,56 @@ function updateActiveNavigation() {
     CONFIG.navOffset;
 
 
-  sections.forEach(section => {
+  sections.forEach(
+    section => {
 
-    if (
-      position >=
-      section.offsetTop
-    ) {
+      if (
+        position >=
+        section.offsetTop
+      ) {
 
-      activeSection =
-        section.id ||
-        activeSection;
+        activeSection =
+          section.id ||
+          activeSection;
+
+      }
 
     }
+  );
 
-  });
 
+  navLinks.forEach(
+    link => {
 
-  navLinks.forEach(link => {
+      link.classList.toggle(
 
-    link.classList.toggle(
-      "active",
-      link.getAttribute("href") ===
-      `#${activeSection}`
-    );
+        "active",
 
-  });
+        link.getAttribute(
+          "href"
+        ) ===
+        `#${activeSection}`
+
+      );
+
+    }
+  );
 
 }
 
 
 /* =========================================================
    REVEAL ANIMATION
-   ========================================================= */
+========================================================= */
 
 function setupRevealAnimation() {
 
-  if (!revealElements.length) {
+  if (
+    !revealElements.length
+  ) {
+
     return;
+
   }
 
 
@@ -2214,16 +2593,21 @@ function setupRevealAnimation() {
 
   if (
     reduceMotion ||
-    !("IntersectionObserver" in window)
+    !(
+      "IntersectionObserver"
+      in window
+    )
   ) {
 
-    revealElements.forEach(element => {
+    revealElements.forEach(
+      element => {
 
-      element.classList.add(
-        "active-reveal"
-      );
+        element.classList.add(
+          "active-reveal"
+        );
 
-    });
+      }
+    );
 
 
     return;
@@ -2239,29 +2623,39 @@ function setupRevealAnimation() {
         observerInstance
       ) => {
 
-        entries.forEach(entry => {
+        entries.forEach(
+          entry => {
 
-          if (!entry.isIntersecting) {
-            return;
-          }
+            if (
+              !entry.isIntersecting
+            ) {
+
+              return;
+
+            }
 
 
-          entry.target.classList.add(
-            "active-reveal"
-          );
-
-
-          observerInstance.unobserve(
             entry.target
-          );
+              .classList
+              .add(
+                "active-reveal"
+              );
 
-        });
+
+            observerInstance
+              .unobserve(
+                entry.target
+              );
+
+          }
+        );
 
       },
 
       {
 
-        threshold: 0.07,
+        threshold:
+          0.07,
 
         rootMargin:
           "0px 0px -55px 0px"
@@ -2271,100 +2665,452 @@ function setupRevealAnimation() {
     );
 
 
-  revealElements.forEach(element => {
+  revealElements.forEach(
+    element => {
 
-    observer.observe(
-      element
-    );
+      observer.observe(
+        element
+      );
 
-  });
+    }
+  );
 
 }
 
 
 /* =========================================================
    SKILLS / WORK FOCUS TABS
-   ========================================================= */
+========================================================= */
 
 function setupTabs() {
 
-  if (!tabButtons.length) {
+  if (
+    !tabButtons.length
+  ) {
+
     return;
+
   }
 
 
-  tabButtons.forEach(button => {
+  tabButtons.forEach(
+    button => {
 
-    button.addEventListener(
+      button.addEventListener(
+        "click",
+        () => {
+
+          const panelID =
+            button.dataset.tab;
+
+
+          if (
+            !panelID
+          ) {
+
+            return;
+
+          }
+
+
+          tabButtons.forEach(
+            item => {
+
+              item.classList.remove(
+                "active"
+              );
+
+
+              item.setAttribute(
+                "aria-selected",
+                "false"
+              );
+
+            }
+          );
+
+
+          tabPanels.forEach(
+            panel => {
+
+              panel.classList.remove(
+                "active"
+              );
+
+            }
+          );
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          button.setAttribute(
+            "aria-selected",
+            "true"
+          );
+
+
+          document
+            .getElementById(
+              panelID
+            )
+            ?.classList.add(
+              "active"
+            );
+
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   HISABFLOW DEMO MODAL
+========================================================= */
+
+function setupHisabFlowDemo() {
+
+  if (
+    !watchHisabFlowDemo ||
+    !hisabflowDemoModal ||
+    !hisabflowDemoVideo
+  ) {
+
+    return;
+
+  }
+
+
+  watchHisabFlowDemo.addEventListener(
+    "click",
+    openHisabFlowDemo
+  );
+
+
+  closeHisabFlowDemo
+    ?.addEventListener(
       "click",
+      closeHisabFlowDemoModal
+    );
+
+
+  hisabflowCloseTargets.forEach(
+    element => {
+
+      element.addEventListener(
+        "click",
+        closeHisabFlowDemoModal
+      );
+
+    }
+  );
+
+
+  /*
+    ESC closes modal.
+  */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape" &&
+        isHisabFlowModalOpen()
+      ) {
+
+        event.preventDefault();
+
+        closeHisabFlowDemoModal();
+
+      }
+
+    }
+  );
+
+
+  /*
+    Pause video automatically
+    if browser/tab becomes hidden.
+  */
+
+  document.addEventListener(
+    "visibilitychange",
+    () => {
+
+      if (
+        document.hidden &&
+        isHisabFlowModalOpen()
+      ) {
+
+        hisabflowDemoVideo.pause();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   OPEN HISABFLOW DEMO
+========================================================= */
+
+function openHisabFlowDemo() {
+
+  if (
+    !hisabflowDemoModal ||
+    !hisabflowDemoVideo
+  ) {
+
+    return;
+
+  }
+
+
+  lastFocusedElement =
+    document.activeElement;
+
+
+  closeMobileMenu();
+
+
+  const videoSource =
+    hisabflowDemoVideo
+      .dataset
+      .src;
+
+
+  /*
+    VIDEO PERFORMANCE:
+    src is attached only when
+    user clicks Watch Demo.
+  */
+
+  if (
+    videoSource &&
+    !hisabflowDemoVideo
+      .getAttribute("src")
+  ) {
+
+    hisabflowDemoVideo
+      .setAttribute(
+        "src",
+        videoSource
+      );
+
+
+    hisabflowDemoVideo.load();
+
+  }
+
+
+  hisabflowDemoModal
+    .classList
+    .add(
+      "show"
+    );
+
+
+  hisabflowDemoModal
+    .setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+
+  body.classList.add(
+    "hisabflow-modal-open"
+  );
+
+
+  /*
+    Move focus to close button.
+  */
+
+  requestAnimationFrame(
+    () => {
+
+      closeHisabFlowDemo
+        ?.focus();
+
+    }
+  );
+
+
+  /*
+    Try autoplay because opening
+    comes directly from a user click.
+    If browser blocks autoplay,
+    normal video controls remain available.
+  */
+
+  const playPromise =
+    hisabflowDemoVideo.play();
+
+
+  if (
+    playPromise &&
+    typeof playPromise.catch ===
+      "function"
+  ) {
+
+    playPromise.catch(
       () => {
 
-        const panelID =
-          button.dataset.tab;
-
-
-        if (!panelID) {
-          return;
-        }
-
-
-        tabButtons.forEach(item => {
-
-          item.classList.remove(
-            "active"
-          );
-
-
-          item.setAttribute(
-            "aria-selected",
-            "false"
-          );
-
-        });
-
-
-        tabPanels.forEach(panel => {
-
-          panel.classList.remove(
-            "active"
-          );
-
-        });
-
-
-        button.classList.add(
-          "active"
-        );
-
-
-        button.setAttribute(
-          "aria-selected",
-          "true"
-        );
-
-
-        document
-          .getElementById(panelID)
-          ?.classList.add(
-            "active"
-          );
+        /*
+          Autoplay blocked.
+          User can press Play manually.
+        */
 
       }
     );
 
-  });
+  }
+
+}
+
+
+/* =========================================================
+   CLOSE HISABFLOW DEMO
+========================================================= */
+
+function closeHisabFlowDemoModal() {
+
+  if (
+    !hisabflowDemoModal ||
+    !hisabflowDemoVideo
+  ) {
+
+    return;
+
+  }
+
+
+  hisabflowDemoModal
+    .classList
+    .remove(
+      "show"
+    );
+
+
+  hisabflowDemoModal
+    .setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
+  body.classList.remove(
+    "hisabflow-modal-open"
+  );
+
+
+  /*
+    Stop video immediately.
+  */
+
+  hisabflowDemoVideo.pause();
+
+
+  try {
+
+    hisabflowDemoVideo.currentTime =
+      0;
+
+  } catch (error) {
+
+    /*
+      Ignore reset error.
+    */
+
+  }
+
+
+  /*
+    Performance optimization:
+    completely detach the large
+    video file after modal closes.
+
+    This releases network/media
+    resources and prevents the
+    25MB demo from affecting
+    normal portfolio performance.
+  */
+
+  hisabflowDemoVideo
+    .removeAttribute(
+      "src"
+    );
+
+
+  hisabflowDemoVideo.load();
+
+
+  /*
+    Restore keyboard focus.
+  */
+
+  if (
+    lastFocusedElement &&
+    typeof lastFocusedElement.focus ===
+      "function"
+  ) {
+
+    requestAnimationFrame(
+      () => {
+
+        lastFocusedElement.focus();
+
+      }
+    );
+
+  }
+
+
+  lastFocusedElement =
+    null;
+
+}
+
+
+/* =========================================================
+   CHECK MODAL STATE
+========================================================= */
+
+function isHisabFlowModalOpen() {
+
+  return Boolean(
+
+    hisabflowDemoModal
+      ?.classList
+      .contains(
+        "show"
+      )
+
+  );
 
 }
 
 
 /* =========================================================
    CONTACT FORM -> WHATSAPP
-   ========================================================= */
+========================================================= */
 
 function setupContactForm() {
 
-  if (!contactForm) {
+  if (
+    !contactForm
+  ) {
+
     return;
+
   }
 
 
@@ -2381,7 +3127,8 @@ function setupContactForm() {
             "contactName"
           )
           ?.value
-          .trim() || "";
+          .trim() ||
+        "";
 
 
       const email =
@@ -2390,7 +3137,8 @@ function setupContactForm() {
             "contactEmail"
           )
           ?.value
-          .trim() || "";
+          .trim() ||
+        "";
 
 
       const subject =
@@ -2399,7 +3147,8 @@ function setupContactForm() {
             "contactSubject"
           )
           ?.value
-          .trim() || "";
+          .trim() ||
+        "";
 
 
       const message =
@@ -2408,7 +3157,8 @@ function setupContactForm() {
             "contactMessage"
           )
           ?.value
-          .trim() || "";
+          .trim() ||
+        "";
 
 
       if (
@@ -2419,21 +3169,33 @@ function setupContactForm() {
       ) {
 
         showFormMessage(
+
           "Please complete all required fields.",
+
           "error"
+
         );
+
 
         return;
 
       }
 
 
-      if (!validateEmail(email)) {
+      if (
+        !validateEmail(
+          email
+        )
+      ) {
 
         showFormMessage(
+
           "Please enter a valid email address.",
+
           "error"
+
         );
+
 
         return;
 
@@ -2461,29 +3223,43 @@ Sent from Masum Technical Support Bangladesh Portfolio`;
 
 
       showFormMessage(
+
         "Opening WhatsApp...",
+
         "success"
+
       );
 
 
-      setTimeout(() => {
+      setTimeout(
+        () => {
 
-        const newWindow =
-          window.open(
-            whatsappURL,
-            "_blank",
-            "noopener,noreferrer"
-          );
+          const newWindow =
+            window.open(
+
+              whatsappURL,
+
+              "_blank",
+
+              "noopener,noreferrer"
+
+            );
 
 
-        if (!newWindow) {
+          if (
+            !newWindow
+          ) {
 
-          window.location.href =
-            whatsappURL;
+            window.location.href =
+              whatsappURL;
 
-        }
+          }
 
-      }, 220);
+        },
+
+        220
+
+      );
 
     }
   );
@@ -2491,7 +3267,13 @@ Sent from Masum Technical Support Bangladesh Portfolio`;
 }
 
 
-function validateEmail(email) {
+/* =========================================================
+   EMAIL VALIDATION
+========================================================= */
+
+function validateEmail(
+  email
+) {
 
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
     email
@@ -2502,7 +3284,7 @@ function validateEmail(email) {
 
 /* =========================================================
    CONTACT FORM MESSAGE
-   ========================================================= */
+========================================================= */
 
 function showFormMessage(
   message,
@@ -2517,7 +3299,9 @@ function showFormMessage(
 
 
   const messageBox =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   messageBox.id =
@@ -2531,29 +3315,38 @@ function showFormMessage(
   messageBox.style.marginTop =
     "13px";
 
+
   messageBox.style.padding =
     "11px 13px";
+
 
   messageBox.style.borderRadius =
     "12px";
 
+
   messageBox.style.fontSize =
     "0.76rem";
 
+
   messageBox.style.fontWeight =
     "750";
+
 
   messageBox.style.textAlign =
     "center";
 
 
-  if (type === "error") {
+  if (
+    type === "error"
+  ) {
 
     messageBox.style.color =
       "#b42318";
 
+
     messageBox.style.background =
       "rgba(239,68,68,.10)";
+
 
     messageBox.style.border =
       "1px solid rgba(239,68,68,.18)";
@@ -2563,8 +3356,10 @@ function showFormMessage(
     messageBox.style.color =
       "#087a57";
 
+
     messageBox.style.background =
       "rgba(22,185,129,.10)";
+
 
     messageBox.style.border =
       "1px solid rgba(22,185,129,.18)";
@@ -2577,23 +3372,32 @@ function showFormMessage(
   );
 
 
-  setTimeout(() => {
+  setTimeout(
+    () => {
 
-    messageBox.remove();
+      messageBox.remove();
 
-  }, 3500);
+    },
+
+    3500
+
+  );
 
 }
 
 
 /* =========================================================
    BACK TO TOP
-   ========================================================= */
+========================================================= */
 
 function setupBackToTop() {
 
-  if (!backToTop) {
+  if (
+    !backToTop
+  ) {
+
     return;
+
   }
 
 
@@ -2603,9 +3407,11 @@ function setupBackToTop() {
 
       window.scrollTo({
 
-        top: 0,
+        top:
+          0,
 
-        behavior: "smooth"
+        behavior:
+          "smooth"
 
       });
 
@@ -2613,15 +3419,21 @@ function setupBackToTop() {
       try {
 
         history.replaceState(
+
           null,
+
           "",
+
           window.location.pathname +
           window.location.search
+
         );
 
       } catch (error) {
 
-        /* Ignore */
+        /*
+          Ignore history error.
+        */
 
       }
 
@@ -2633,7 +3445,7 @@ function setupBackToTop() {
 
 /* =========================================================
    HERO COUNTERS
-   ========================================================= */
+========================================================= */
 
 function setupCounters() {
 
@@ -2643,8 +3455,12 @@ function setupCounters() {
     );
 
 
-  if (!counters.length) {
+  if (
+    !counters.length
+  ) {
+
     return;
+
   }
 
 
@@ -2656,27 +3472,34 @@ function setupCounters() {
 
   if (
     reduceMotion ||
-    !("IntersectionObserver" in window)
+    !(
+      "IntersectionObserver"
+      in window
+    )
   ) {
 
-    counters.forEach(counter => {
+    counters.forEach(
+      counter => {
 
-      const value =
-        Number(
-          counter.dataset.count
-        );
+        const value =
+          Number(
+            counter.dataset.count
+          );
 
 
-      if (
-        Number.isFinite(value)
-      ) {
+        if (
+          Number.isFinite(
+            value
+          )
+        ) {
 
-        counter.textContent =
-          `${value}+`;
+          counter.textContent =
+            `${value}+`;
+
+        }
 
       }
-
-    });
+    );
 
 
     return;
@@ -2692,45 +3515,63 @@ function setupCounters() {
         observerInstance
       ) => {
 
-        entries.forEach(entry => {
+        entries.forEach(
+          entry => {
 
-          if (!entry.isIntersecting) {
-            return;
+            if (
+              !entry.isIntersecting
+            ) {
+
+              return;
+
+            }
+
+
+            animateCounter(
+              entry.target
+            );
+
+
+            observerInstance
+              .unobserve(
+                entry.target
+              );
+
           }
-
-
-          animateCounter(
-            entry.target
-          );
-
-
-          observerInstance.unobserve(
-            entry.target
-          );
-
-        });
+        );
 
       },
 
       {
-        threshold: 0.45
+
+        threshold:
+          0.45
+
       }
 
     );
 
 
-  counters.forEach(counter => {
+  counters.forEach(
+    counter => {
 
-    observer.observe(
-      counter
-    );
+      observer.observe(
+        counter
+      );
 
-  });
+    }
+  );
 
 }
 
 
-function animateCounter(element) {
+/* =========================================================
+   COUNTER ANIMATION
+========================================================= */
+
+function animateCounter(
+  element
+) {
 
   const target =
     Number(
@@ -2739,7 +3580,9 @@ function animateCounter(element) {
 
 
   if (
-    !Number.isFinite(target)
+    !Number.isFinite(
+      target
+    )
   ) {
 
     return;
@@ -2755,13 +3598,21 @@ function animateCounter(element) {
     performance.now();
 
 
-  function update(now) {
+  function update(
+    now
+  ) {
 
     const progress =
       Math.min(
-        (now - startTime) /
+
+        (
+          now -
+          startTime
+        ) /
         duration,
+
         1
+
       );
 
 
@@ -2806,56 +3657,62 @@ function animateCounter(element) {
 
 /* =========================================================
    IMAGE PERFORMANCE
-   ========================================================= */
+========================================================= */
 
 function setupImagePerformance() {
 
   const images =
-    document.querySelectorAll("img");
+    document.querySelectorAll(
+      "img"
+    );
 
 
-  images.forEach(image => {
+  images.forEach(
+    image => {
 
-    image.decoding =
-      "async";
-
-
-    if (
-      image.classList.contains(
-        "hero-main-photo"
-      )
-    ) {
-
-      image.loading =
-        "eager";
+      image.decoding =
+        "async";
 
 
-      try {
+      if (
+        image.classList.contains(
+          "hero-main-photo"
+        )
+      ) {
 
-        image.fetchPriority =
-          "high";
+        image.loading =
+          "eager";
 
-      } catch (error) {
 
-        /* Browser fallback */
+        try {
+
+          image.fetchPriority =
+            "high";
+
+        } catch (error) {
+
+          /*
+            Browser fallback.
+          */
+
+        }
+
+      } else {
+
+        image.loading =
+          "lazy";
 
       }
 
-    } else {
-
-      image.loading =
-        "lazy";
-
     }
-
-  });
+  );
 
 }
 
 
 /* =========================================================
    EXTERNAL LINK SECURITY
-   ========================================================= */
+========================================================= */
 
 function setupExternalLinkSecurity() {
 
@@ -2865,88 +3722,118 @@ function setupExternalLinkSecurity() {
     );
 
 
-  links.forEach(link => {
+  links.forEach(
+    link => {
 
-    const relValues =
-      new Set(
-        (
-          link.getAttribute("rel") ||
-          ""
-        )
-          .split(/\s+/)
-          .filter(Boolean)
+      const relValues =
+        new Set(
+
+          (
+            link.getAttribute(
+              "rel"
+            ) ||
+            ""
+          )
+
+            .split(/\s+/)
+
+            .filter(
+              Boolean
+            )
+
+        );
+
+
+      relValues.add(
+        "noopener"
       );
 
 
-    relValues.add(
-      "noopener"
-    );
-
-    relValues.add(
-      "noreferrer"
-    );
+      relValues.add(
+        "noreferrer"
+      );
 
 
-    link.setAttribute(
-      "rel",
-      Array
-        .from(relValues)
-        .join(" ")
-    );
+      link.setAttribute(
 
-  });
+        "rel",
+
+        Array
+          .from(
+            relValues
+          )
+          .join(" ")
+
+      );
+
+    }
+  );
 
 }
 
 
 /* =========================================================
    CURRENT YEAR
-   ========================================================= */
+========================================================= */
 
 function updateCurrentYear() {
 
-  if (!currentYear) {
+  if (
+    !currentYear
+  ) {
+
     return;
+
   }
 
 
   currentYear.textContent =
-    new Date().getFullYear();
+    new Date()
+      .getFullYear();
 
 }
 
 
 /* =========================================================
    BACK / FORWARD CACHE
-   ========================================================= */
+========================================================= */
 
 window.addEventListener(
   "pageshow",
   event => {
 
-    if (!event.persisted) {
+    if (
+      !event.persisted
+    ) {
+
       return;
+
     }
 
 
     closeMobileMenu();
 
 
+    closeHisabFlowDemoModal();
+
+
     updateActiveNavigation();
 
 
-    navbar?.classList.toggle(
-      "scrolled",
-      window.scrollY > 30
-    );
+    navbar
+      ?.classList
+      .toggle(
+        "scrolled",
+        window.scrollY > 30
+      );
 
   }
 );
 
 
 /* =========================================================
-   PERFORMANCE WHEN TAB IS HIDDEN
-   ========================================================= */
+   PAGE HIDDEN PERFORMANCE
+========================================================= */
 
 document.addEventListener(
   "visibilitychange",
@@ -2954,10 +3841,35 @@ document.addEventListener(
 
     document
       .documentElement
-      .classList.toggle(
+      .classList
+      .toggle(
+
         "page-hidden",
+
         document.hidden
+
       );
+
+  }
+);
+
+
+/* =========================================================
+   WINDOW BEFORE UNLOAD
+   CLEAN UP VIDEO
+========================================================= */
+
+window.addEventListener(
+  "beforeunload",
+  () => {
+
+    if (
+      hisabflowDemoVideo
+    ) {
+
+      hisabflowDemoVideo.pause();
+
+    }
 
   }
 );
