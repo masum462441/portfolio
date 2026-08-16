@@ -1,16 +1,40 @@
 "use strict";
 
-const body = document.body;
-const navbar = document.getElementById("navbar");
-const navLinks = document.getElementById("navLinks");
-const menuButton = document.getElementById("menuButton");
-const menuClose = document.getElementById("menuClose");
-const navOverlay = document.getElementById("navOverlay");
-const themeButton = document.getElementById("themeButton");
-const typingName = document.getElementById("typingName");
-const introScreen = document.getElementById("introScreen");
-const topButton = document.getElementById("topButton");
-const contactForm = document.getElementById("contactForm");
+const AI_ENDPOINT =
+  "https://masum-assistant-api.farabi13577.workers.dev/";
+
+const body =
+  document.body;
+
+const navbar =
+  document.getElementById("navbar");
+
+const navLinks =
+  document.getElementById("navLinks");
+
+const menuButton =
+  document.getElementById("menuButton");
+
+const menuClose =
+  document.getElementById("menuClose");
+
+const navOverlay =
+  document.getElementById("navOverlay");
+
+const themeButton =
+  document.getElementById("themeButton");
+
+const typingName =
+  document.getElementById("typingName");
+
+const introScreen =
+  document.getElementById("introScreen");
+
+const topButton =
+  document.getElementById("topButton");
+
+const contactForm =
+  document.getElementById("contactForm");
 
 const automationDemoButton =
   document.getElementById("automationDemoButton");
@@ -48,9 +72,6 @@ const assistantForm =
 const assistantInput =
   document.getElementById("assistantInput");
 
-const assistantApi =
-  "https://masum-assistant-api.farabi13577.workers.dev/";
-
 const fullName =
   "Md Raqibul Islam Masum";
 
@@ -62,25 +83,41 @@ if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-    window.scrollTo(0, 0);
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    initializePortfolio
+  );
+} else {
+  initializePortfolio();
+}
 
-    setupTheme();
-    setupIntro();
-    setupNavigation();
-    setupSectionReveal();
-    setupProjectAnimations();
-    setupTabs();
-    setupVideos();
-    setupAssistant();
-    setupContactForm();
-    setupBackToTop();
-    setupYear();
-    setupActiveNavigation();
-  }
-);
+function initializePortfolio() {
+  window.scrollTo(0, 0);
+
+  setupTheme();
+  setupIntro();
+  setupNavigation();
+  setupReveal();
+  setupProjectAnimations();
+  setupSkillTabs();
+  setupVideos();
+  setupContactForm();
+  setupAssistant();
+  setupAssistantViewport();
+  setupBackToTop();
+  setupYear();
+
+  window.addEventListener(
+    "load",
+    () => {
+      window.scrollTo(0, 0);
+    },
+    {
+      once: true
+    }
+  );
+}
 
 function setupIntro() {
   if (!introScreen) {
@@ -88,53 +125,76 @@ function setupIntro() {
     return;
   }
 
-  const reducedMotion =
+  const reduceMotion =
     window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-  if (reducedMotion) {
+  if (reduceMotion) {
     introScreen.remove();
     startTyping();
     return;
   }
 
-  setTimeout(() => {
-    introScreen.classList.add("hide");
+  setTimeout(
+    () => {
+      introScreen.classList.add("hide");
 
-    setTimeout(() => {
-      introScreen.remove();
-      startTyping();
-    }, 500);
-  }, 1600);
+      setTimeout(
+        () => {
+          introScreen.remove();
+          startTyping();
+        },
+        470
+      );
+    },
+    1650
+  );
 }
 
 function startTyping() {
-  if (!typingName) return;
+  if (!typingName) {
+    return;
+  }
 
   clearTimeout(typingTimer);
 
   typingName.textContent = "";
   typingIndex = 0;
 
-  function nextCharacter() {
-    if (typingIndex >= fullName.length) {
+  const reduceMotion =
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+  if (reduceMotion) {
+    typingName.textContent = fullName;
+    return;
+  }
+
+  function typeNext() {
+    if (
+      typingIndex >=
+      fullName.length
+    ) {
       return;
     }
 
     typingName.textContent +=
-      fullName.charAt(typingIndex);
+      fullName.charAt(
+        typingIndex
+      );
 
     typingIndex += 1;
 
     typingTimer =
       setTimeout(
-        nextCharacter,
-        48
+        typeNext,
+        47
       );
   }
 
-  nextCharacter();
+  typeNext();
 }
 
 function setupTheme() {
@@ -174,6 +234,9 @@ function setupTheme() {
             : "dark"
         );
       } catch (error) {
+        console.warn(
+          "Theme preference could not be saved."
+        );
       }
 
       updateThemeIcon();
@@ -182,26 +245,25 @@ function setupTheme() {
 }
 
 function updateThemeIcon() {
-  if (!themeButton) return;
+  const icon =
+    themeButton?.querySelector("i");
 
-  themeButton.innerHTML =
+  if (!icon) {
+    return;
+  }
+
+  icon.className =
     body.classList.contains(
       "light-theme"
     )
-      ? '<i class="fa-solid fa-moon"></i>'
-      : '<i class="fa-solid fa-sun"></i>';
+      ? "fa-solid fa-moon"
+      : "fa-solid fa-sun";
 }
 
 function setupNavigation() {
   menuButton?.addEventListener(
     "click",
-    () => {
-      navLinks?.classList.contains(
-        "show"
-      )
-        ? closeMenu()
-        : openMenu();
-    }
+    openMenu
   );
 
   menuClose?.addEventListener(
@@ -218,78 +280,77 @@ function setupNavigation() {
     .querySelectorAll(
       'a[href^="#"]:not([href="#"])'
     )
-    .forEach(link => {
-      link.addEventListener(
-        "click",
-        event => {
-          const href =
-            link.getAttribute(
-              "href"
-            );
+    .forEach(
+      link => {
+        link.addEventListener(
+          "click",
+          event => {
+            const selector =
+              link.getAttribute(
+                "href"
+              );
 
-          if (!href) return;
+            if (!selector) {
+              return;
+            }
 
-          const target =
-            document.querySelector(
-              href
-            );
+            const target =
+              document.querySelector(
+                selector
+              );
 
-          if (!target) return;
+            if (!target) {
+              return;
+            }
 
-          event.preventDefault();
+            event.preventDefault();
 
-          closeMenu();
+            closeMenu();
 
-          const navHeight =
-            navbar?.offsetHeight ||
-            75;
+            const navHeight =
+              navbar?.offsetHeight ||
+              66;
 
-          const top =
-            target
-              .getBoundingClientRect()
-              .top +
-            window.scrollY -
-            navHeight -
-            16;
+            const targetTop =
+              target
+                .getBoundingClientRect()
+                .top +
+              window.scrollY -
+              navHeight -
+              8;
 
-          window.scrollTo({
-            top,
-            behavior: "smooth"
-          });
-        }
-      );
-    });
-
-  document.addEventListener(
-    "keydown",
-    event => {
-      if (event.key !== "Escape") {
-        return;
+            window.scrollTo({
+              top: Math.max(
+                0,
+                targetTop
+              ),
+              behavior: "smooth"
+            });
+          }
+        );
       }
+    );
 
-      closeMenu();
-      closeAssistant();
-
-      closeVideoModal(
-        automationModal,
-        automationVideo
-      );
-
-      closeVideoModal(
-        hisabflowModal,
-        hisabflowVideo
-      );
+  window.addEventListener(
+    "scroll",
+    handleScroll,
+    {
+      passive: true
     }
   );
 
   window.addEventListener(
     "resize",
     () => {
-      if (window.innerWidth > 960) {
+      if (
+        window.innerWidth > 820
+      ) {
         closeMenu();
       }
     }
   );
+
+  handleScroll();
 }
 
 function openMenu() {
@@ -301,13 +362,13 @@ function openMenu() {
     "show"
   );
 
-  body.classList.add(
-    "no-scroll"
-  );
-
   menuButton?.setAttribute(
     "aria-expanded",
     "true"
+  );
+
+  body.classList.add(
+    "no-scroll"
   );
 }
 
@@ -326,12 +387,15 @@ function closeMenu() {
   );
 
   if (
-    !automationModal?.classList.contains(
-      "show"
-    ) &&
-    !hisabflowModal?.classList.contains(
-      "show"
-    )
+    !automationModal
+      ?.classList
+      .contains("show") &&
+    !hisabflowModal
+      ?.classList
+      .contains("show") &&
+    !assistantPanel
+      ?.classList
+      .contains("show")
   ) {
     body.classList.remove(
       "no-scroll"
@@ -339,21 +403,80 @@ function closeMenu() {
   }
 }
 
-function setupSectionReveal() {
+function handleScroll() {
+  navbar?.classList.toggle(
+    "scrolled",
+    window.scrollY > 25
+  );
+
+  updateActiveNavigation();
+
+  topButton?.classList.toggle(
+    "show",
+    window.scrollY > 430
+  );
+}
+
+function updateActiveNavigation() {
+  const sections =
+    document.querySelectorAll(
+      "section[id]"
+    );
+
+  let current =
+    "home";
+
+  const position =
+    window.scrollY + 130;
+
+  sections.forEach(
+    section => {
+      if (
+        position >=
+        section.offsetTop
+      ) {
+        current =
+          section.id;
+      }
+    }
+  );
+
+  document
+    .querySelectorAll(
+      '.nav-links a[href^="#"]'
+    )
+    .forEach(
+      link => {
+        link.classList.toggle(
+          "active",
+          link.getAttribute(
+            "href"
+          ) ===
+            `#${current}`
+        );
+      }
+    );
+}
+
+function setupReveal() {
   const elements =
     document.querySelectorAll(
       ".section-reveal"
     );
 
   if (
-    !elements.length ||
-    !("IntersectionObserver" in window)
+    !(
+      "IntersectionObserver" in
+      window
+    )
   ) {
-    elements.forEach(element => {
-      element.classList.add(
-        "visible"
-      );
-    });
+    elements.forEach(
+      element => {
+        element.classList.add(
+          "visible"
+        );
+      }
+    );
 
     return;
   }
@@ -361,47 +484,59 @@ function setupSectionReveal() {
   const observer =
     new IntersectionObserver(
       entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) {
-            return;
-          }
+        entries.forEach(
+          entry => {
+            if (
+              !entry.isIntersecting
+            ) {
+              return;
+            }
 
-          entry.target.classList.add(
-            "visible"
-          );
-
-          observer.unobserve(
             entry.target
-          );
-        });
+              .classList
+              .add("visible");
+
+            observer.unobserve(
+              entry.target
+            );
+          }
+        );
       },
       {
-        threshold: 0.06,
+        threshold: 0.05,
         rootMargin:
-          "0px 0px -40px 0px"
+          "0px 0px -25px 0px"
       }
     );
 
-  elements.forEach(element => {
-    observer.observe(element);
-  });
+  elements.forEach(
+    element => {
+      observer.observe(
+        element
+      );
+    }
+  );
 }
 
 function setupProjectAnimations() {
-  const cards =
+  const elements =
     document.querySelectorAll(
       "[data-project-card]"
     );
 
   if (
-    !cards.length ||
-    !("IntersectionObserver" in window)
+    !(
+      "IntersectionObserver" in
+      window
+    )
   ) {
-    cards.forEach(card => {
-      card.classList.add(
-        "in-view"
-      );
-    });
+    elements.forEach(
+      element => {
+        element.classList.add(
+          "project-visible"
+        );
+      }
+    );
 
     return;
   }
@@ -409,36 +544,46 @@ function setupProjectAnimations() {
   const observer =
     new IntersectionObserver(
       entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) {
-            return;
-          }
+        entries.forEach(
+          entry => {
+            if (
+              !entry.isIntersecting
+            ) {
+              return;
+            }
 
-          entry.target.classList.add(
-            "in-view"
-          );
-
-          observer.unobserve(
             entry.target
-          );
-        });
+              .classList
+              .add(
+                "project-visible"
+              );
+
+            observer.unobserve(
+              entry.target
+            );
+          }
+        );
       },
       {
-        threshold: 0.09,
+        threshold: 0.12,
         rootMargin:
-          "0px 0px -45px 0px"
+          "0px 0px -30px 0px"
       }
     );
 
-  cards.forEach(card => {
-    observer.observe(card);
-  });
+  elements.forEach(
+    element => {
+      observer.observe(
+        element
+      );
+    }
+  );
 }
 
-function setupTabs() {
+function setupSkillTabs() {
   const buttons =
     document.querySelectorAll(
-      ".skill-tab[data-tab]"
+      ".skill-tab"
     );
 
   const panels =
@@ -446,147 +591,166 @@ function setupTabs() {
       ".skill-panel"
     );
 
-  buttons.forEach(button => {
-    button.addEventListener(
-      "click",
-      () => {
-        const targetId =
-          button.dataset.tab;
+  buttons.forEach(
+    button => {
+      button.addEventListener(
+        "click",
+        () => {
+          const panelId =
+            button.dataset.tab;
 
-        const target =
-          document.getElementById(
-            targetId
+          const panel =
+            document.getElementById(
+              panelId
+            );
+
+          if (!panel) {
+            return;
+          }
+
+          buttons.forEach(
+            item => {
+              item.classList.remove(
+                "active"
+              );
+
+              item.setAttribute(
+                "aria-selected",
+                "false"
+              );
+            }
           );
 
-        if (!target) return;
+          panels.forEach(
+            item => {
+              item.classList.remove(
+                "active"
+              );
+            }
+          );
 
-        buttons.forEach(item => {
-          item.classList.remove(
+          button.classList.add(
             "active"
           );
 
-          item.setAttribute(
+          button.setAttribute(
             "aria-selected",
-            "false"
+            "true"
           );
-        });
 
-        panels.forEach(panel => {
-          panel.classList.remove(
+          panel.classList.add(
             "active"
-          );
-        });
-
-        button.classList.add(
-          "active"
-        );
-
-        button.setAttribute(
-          "aria-selected",
-          "true"
-        );
-
-        target.classList.add(
-          "active"
-        );
-
-        if (
-          targetId ===
-          "workPanel"
-        ) {
-          animateWorkFocus(
-            target
           );
         }
-      }
-    );
-  });
-}
-
-function animateWorkFocus(panel) {
-  const items =
-    panel.querySelectorAll(
-      ".work-timeline article"
-    );
-
-  items.forEach(item => {
-    item.classList.remove(
-      "timeline-show"
-    );
-  });
-
-  requestAnimationFrame(() => {
-    items.forEach(
-      (item, index) => {
-        setTimeout(() => {
-          item.classList.add(
-            "timeline-show"
-          );
-        }, index * 115);
-      }
-    );
-  });
-}
-
-function setupVideos() {
-  automationDemoButton?.addEventListener(
-    "click",
-    () => {
-      openVideoModal(
-        automationModal,
-        automationVideo
       );
     }
   );
+}
+
+function setupVideos() {
+  automationDemoButton
+    ?.addEventListener(
+      "click",
+      () => {
+        openVideoModal(
+          automationModal,
+          automationVideo
+        );
+      }
+    );
 
   document
     .querySelectorAll(
       "[data-close-modal]"
     )
-    .forEach(button => {
-      button.addEventListener(
-        "click",
-        () => {
-          closeVideoModal(
-            automationModal,
-            automationVideo
-          );
-        }
-      );
-    });
+    .forEach(
+      element => {
+        element.addEventListener(
+          "click",
+          () => {
+            closeVideoModal(
+              automationModal,
+              automationVideo
+            );
+          }
+        );
+      }
+    );
 
-  hisabflowDemoButton?.addEventListener(
-    "click",
-    () => {
-      openVideoModal(
-        hisabflowModal,
-        hisabflowVideo
-      );
-    }
-  );
+  hisabflowDemoButton
+    ?.addEventListener(
+      "click",
+      () => {
+        openVideoModal(
+          hisabflowModal,
+          hisabflowVideo
+        );
+      }
+    );
 
   document
     .querySelectorAll(
       "[data-close-hisabflow]"
     )
-    .forEach(button => {
-      button.addEventListener(
-        "click",
-        () => {
-          closeVideoModal(
-            hisabflowModal,
-            hisabflowVideo
-          );
-        }
-      );
-    });
+    .forEach(
+      element => {
+        element.addEventListener(
+          "click",
+          () => {
+            closeVideoModal(
+              hisabflowModal,
+              hisabflowVideo
+            );
+          }
+        );
+      }
+    );
+
+  document.addEventListener(
+    "keydown",
+    event => {
+      if (
+        event.key !== "Escape"
+      ) {
+        return;
+      }
+
+      if (
+        automationModal
+          ?.classList
+          .contains("show")
+      ) {
+        closeVideoModal(
+          automationModal,
+          automationVideo
+        );
+      }
+
+      if (
+        hisabflowModal
+          ?.classList
+          .contains("show")
+      ) {
+        closeVideoModal(
+          hisabflowModal,
+          hisabflowVideo
+        );
+      }
+
+      closeMenu();
+      closeAssistant();
+    }
+  );
 }
 
 function openVideoModal(
   modal,
   video
 ) {
-  if (!modal || !video) {
+  if (
+    !modal ||
+    !video
+  ) {
     return;
   }
 
@@ -595,7 +759,9 @@ function openVideoModal(
 
   if (
     source &&
-    !video.getAttribute("src")
+    !video.getAttribute(
+      "src"
+    )
   ) {
     video.src = source;
     video.load();
@@ -614,16 +780,28 @@ function openVideoModal(
     "no-scroll"
   );
 
-  video
-    .play()
-    .catch(() => {});
+  const playPromise =
+    video.play();
+
+  if (
+    playPromise &&
+    typeof playPromise.catch ===
+      "function"
+  ) {
+    playPromise.catch(
+      () => {}
+    );
+  }
 }
 
 function closeVideoModal(
   modal,
   video
 ) {
-  if (!modal || !video) {
+  if (
+    !modal ||
+    !video
+  ) {
     return;
   }
 
@@ -638,494 +816,29 @@ function closeVideoModal(
 
   video.pause();
 
+  try {
+    video.currentTime = 0;
+  } catch (error) {
+    console.warn(
+      "Video reset failed."
+    );
+  }
+
   video.removeAttribute(
     "src"
   );
 
   video.load();
 
-  body.classList.remove(
-    "no-scroll"
-  );
-}
-
-function setupAssistant() {
-  assistantButton?.addEventListener(
-    "click",
-    () => {
-      const open =
-        assistantPanel
-          ?.classList
-          .toggle("show");
-
-      assistantPanel?.setAttribute(
-        "aria-hidden",
-        open
-          ? "false"
-          : "true"
-      );
-
-      if (open) {
-        setTimeout(() => {
-          assistantInput?.focus();
-        }, 120);
-      }
-    }
-  );
-
-  assistantClose?.addEventListener(
-    "click",
-    closeAssistant
-  );
-
-  document
-    .querySelectorAll(
-      "[data-question]"
-    )
-    .forEach(button => {
-      button.addEventListener(
-        "click",
-        () => {
-          handleQuickQuestion(
-            button.dataset.question
-          );
-        }
-      );
-    });
-
-  assistantForm?.addEventListener(
-    "submit",
-    async event => {
-      event.preventDefault();
-
-      if (assistantBusy) {
-        return;
-      }
-
-      const question =
-        assistantInput
-          ?.value
-          .trim();
-
-      if (!question) {
-        return;
-      }
-
-      assistantInput.value =
-        "";
-
-      await askAssistant(
-        question
-      );
-    }
-  );
-}
-
-function closeAssistant() {
-  assistantPanel?.classList.remove(
-    "show"
-  );
-
-  assistantPanel?.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-}
-
-async function handleQuickQuestion(
-  type
-) {
-  if (assistantBusy) {
-    return;
-  }
-
-  const questions = {
-    automation:
-      "Tell me about your spreadsheet automation.",
-    hisabflow:
-      "Tell me about HisabFlow.",
-    websites:
-      "Which websites did you build?",
-    contact:
-      "How can I contact you?"
-  };
-
-  const question =
-    questions[type];
-
-  if (!question) {
-    return;
-  }
-
-  await askAssistant(
-    question
-  );
-}
-
-async function askAssistant(
-  question
-) {
-  addAssistantMessage(
-    question,
-    "user"
-  );
-
-  showThinking();
-
-  setAssistantBusy(
-    true
-  );
-
-  try {
-    const reply =
-      await requestAssistantReply(
-        question
-      );
-
-    removeThinking();
-
-    addAssistantMessage(
-      reply,
-      "bot"
-    );
-  } catch (error) {
-    removeThinking();
-
-    addAssistantMessage(
-      getLocalAssistantReply(
-        question
-      ),
-      "bot"
-    );
-  } finally {
-    setAssistantBusy(
-      false
-    );
-  }
-}
-
-async function requestAssistantReply(
-  message
-) {
-  const controller =
-    new AbortController();
-
-  const timeout =
-    setTimeout(
-      () => {
-        controller.abort();
-      },
-      30000
-    );
-
-  try {
-    const response =
-      await fetch(
-        assistantApi,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              message
-            }),
-
-          signal:
-            controller.signal
-        }
-      );
-
-    const data =
-      await response.json();
-
-    if (
-      !response.ok ||
-      !data ||
-      data.success !== true ||
-      typeof data.reply !==
-        "string" ||
-      !data.reply.trim()
-    ) {
-      throw new Error(
-        "Assistant API error"
-      );
-    }
-
-    return data.reply.trim();
-  } finally {
-    clearTimeout(
-      timeout
-    );
-  }
-}
-
-function addAssistantMessage(
-  text,
-  sender
-) {
-  if (!assistantMessages) {
-    return;
-  }
-
-  const wrapper =
-    document.createElement(
-      "div"
-    );
-
-  wrapper.className =
-    `assistant-message ${sender}`;
-
-  if (sender === "bot") {
-    const avatar =
-      document.createElement(
-        "span"
-      );
-
-    avatar.className =
-      "message-avatar";
-
-    avatar.textContent =
-      "M";
-
-    wrapper.appendChild(
-      avatar
-    );
-  }
-
-  const content =
-    document.createElement(
-      "div"
-    );
-
-  content.textContent =
-    text;
-
-  wrapper.appendChild(
-    content
-  );
-
-  assistantMessages.appendChild(
-    wrapper
-  );
-
-  scrollAssistant();
-}
-
-function showThinking() {
-  if (!assistantMessages) {
-    return;
-  }
-
-  removeThinking();
-
-  const row =
-    document.createElement(
-      "div"
-    );
-
-  row.className =
-    "assistant-thinking-row";
-
-  row.id =
-    "assistantThinking";
-
-  row.innerHTML = `
-    <div class="assistant-thinking-text">
-      <span>Thinking</span>
-      <div class="thinking-dots">
-        <i></i>
-        <i></i>
-        <i></i>
-      </div>
-    </div>
-  `;
-
-  assistantMessages.appendChild(
-    row
-  );
-
-  scrollAssistant();
-}
-
-function removeThinking() {
-  document
-    .getElementById(
-      "assistantThinking"
-    )
-    ?.remove();
-}
-
-function scrollAssistant() {
-  if (!assistantMessages) {
-    return;
-  }
-
-  requestAnimationFrame(
-    () => {
-      assistantMessages.scrollTop =
-        assistantMessages.scrollHeight;
-    }
-  );
-}
-
-function setAssistantBusy(
-  busy
-) {
-  assistantBusy =
-    busy;
-
-  if (assistantInput) {
-    assistantInput.disabled =
-      busy;
-
-    assistantInput.placeholder =
-      busy
-        ? "Masum Assistant is thinking..."
-        : "Ask about services or projects...";
-  }
-
-  const submit =
-    assistantForm
-      ?.querySelector(
-        "button[type='submit']"
-      );
-
-  if (submit) {
-    submit.disabled =
-      busy;
-  }
-
-  document
-    .querySelectorAll(
-      "[data-question]"
-    )
-    .forEach(button => {
-      button.disabled =
-        busy;
-    });
-}
-
-function normalizeQuestion(
-  text
-) {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(
-      /[?!.,;:'"()]/g,
-      " "
-    )
-    .replace(
-      /\s+/g,
-      " "
-    );
-}
-
-function includesAny(
-  text,
-  words
-) {
-  return words.some(
-    word =>
-      text.includes(word)
-  );
-}
-
-function getLocalAssistantReply(
-  question
-) {
-  const q =
-    normalizeQuestion(
-      question
-    );
-
   if (
-    includesAny(
-      q,
-      [
-        "assalamualaikum",
-        "assalamu alaikum",
-        "salam",
-        "আসসালামু আলাইকুম"
-      ]
-    )
+    !assistantPanel
+      ?.classList
+      .contains("show")
   ) {
-    return "Wa Alaikum Assalam! 👋 I'm Masum Assistant. You can ask me about Spreadsheet Automation, HisabFlow, websites, services or contact information.";
+    body.classList.remove(
+      "no-scroll"
+    );
   }
-
-  if (
-    includesAny(
-      q,
-      [
-        "inventory",
-        "stock",
-        "reconciliation",
-        "spreadsheet",
-        "excel",
-        "google sheet",
-        "automation",
-        "formula",
-        "dashboard",
-        "report"
-      ]
-    )
-  ) {
-    return "Masum builds advanced Excel and Google Sheets automation systems including Stock In/Out, inventory, sales, product pricing, cash collection, deposits, pending amounts, reconciliation, advanced formulas, dashboards and dynamic business reports.";
-  }
-
-  if (
-    includesAny(
-      q,
-      [
-        "hisabflow",
-        "hisab flow",
-        "calculator",
-        "android",
-        "mobile app",
-        "expense",
-        "cash counter"
-      ]
-    )
-  ) {
-    return "HisabFlow 2.0 is a Flutter Android application combining a Smart Calculator, AI Assistant, Daily Income & Expense, Cash Counter BD, Best Buy Compare, Smart Bill Split, Google Login, Cloud Backup, App Lock and other practical utilities.";
-  }
-
-  if (
-    includesAny(
-      q,
-      [
-        "website",
-        "portfolio",
-        "muneeba",
-        "mezbah",
-        "mizanur"
-      ]
-    )
-  ) {
-    return "Featured website projects include Muneeba Medicine Center, Mezbah Uddin Portfolio and Mizanur Rahman Portfolio. You can open each live website from the Projects section.";
-  }
-
-  if (
-    includesAny(
-      q,
-      [
-        "contact",
-        "phone",
-        "whatsapp",
-        "email",
-        "hire"
-      ]
-    )
-  ) {
-    return "You can contact Md Raqibul Islam Masum by WhatsApp or phone at +880 1820-806464 or by email at masumtech.dev@gmail.com.";
-  }
-
-  return "Masum Assistant is temporarily unable to get the full AI reply. You can still ask about Spreadsheet Automation, HisabFlow, websites, services or contact information.";
 }
 
 function setupContactForm() {
@@ -1197,47 +910,636 @@ Sent from Masum Technical Support Bangladesh Portfolio`;
           text
         );
 
-      window.open(
-        url,
-        "_blank",
-        "noopener,noreferrer"
-      );
+      const newWindow =
+        window.open(
+          url,
+          "_blank",
+          "noopener,noreferrer"
+        );
+
+      if (!newWindow) {
+        window.location.href =
+          url;
+      }
     }
   );
 }
 
-function setupBackToTop() {
-  function update() {
-    navbar?.classList.toggle(
-      "scrolled",
-      window.scrollY > 30
+function setupAssistant() {
+  assistantButton
+    ?.addEventListener(
+      "click",
+      () => {
+        if (
+          assistantPanel
+            ?.classList
+            .contains("show")
+        ) {
+          closeAssistant();
+        } else {
+          openAssistant();
+        }
+      }
     );
 
-    topButton?.classList.toggle(
-      "show",
-      window.scrollY > 450
+  assistantClose
+    ?.addEventListener(
+      "click",
+      closeAssistant
+    );
+
+  document
+    .querySelectorAll(
+      "[data-question]"
+    )
+    .forEach(
+      button => {
+        button.addEventListener(
+          "click",
+          () => {
+            const questions = {
+              automation:
+                "Tell me about your spreadsheet automation.",
+              hisabflow:
+                "Tell me about HisabFlow.",
+              websites:
+                "Which websites did you build?",
+              contact:
+                "How can I contact you?"
+            };
+
+            const question =
+              questions[
+                button.dataset
+                  .question
+              ];
+
+            if (!question) {
+              return;
+            }
+
+            sendAssistantQuestion(
+              question
+            );
+          }
+        );
+      }
+    );
+
+  assistantForm
+    ?.addEventListener(
+      "submit",
+      event => {
+        event.preventDefault();
+
+        const question =
+          assistantInput
+            ?.value
+            .trim();
+
+        if (
+          !question ||
+          assistantBusy
+        ) {
+          return;
+        }
+
+        assistantInput.value =
+          "";
+
+        sendAssistantQuestion(
+          question
+        );
+      }
+    );
+
+  assistantInput
+    ?.addEventListener(
+      "focus",
+      () => {
+        body.classList.add(
+          "assistant-open"
+        );
+
+        setTimeout(
+          syncAssistantViewport,
+          80
+        );
+
+        setTimeout(
+          scrollAssistantBottom,
+          150
+        );
+      }
+    );
+
+  assistantInput
+    ?.addEventListener(
+      "blur",
+      () => {
+        setTimeout(
+          syncAssistantViewport,
+          120
+        );
+      }
+    );
+}
+
+function openAssistant() {
+  if (!assistantPanel) {
+    return;
+  }
+
+  closeMenu();
+
+  assistantPanel.classList.add(
+    "show"
+  );
+
+  assistantPanel.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  body.classList.add(
+    "assistant-open"
+  );
+
+  syncAssistantViewport();
+
+  setTimeout(
+    scrollAssistantBottom,
+    50
+  );
+}
+
+function closeAssistant() {
+  if (!assistantPanel) {
+    return;
+  }
+
+  assistantPanel.classList.remove(
+    "show"
+  );
+
+  assistantPanel.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  body.classList.remove(
+    "assistant-open"
+  );
+
+  resetAssistantViewport();
+
+  assistantInput?.blur();
+}
+
+async function sendAssistantQuestion(
+  question
+) {
+  if (
+    !question ||
+    assistantBusy
+  ) {
+    return;
+  }
+
+  openAssistant();
+
+  addAssistantMessage(
+    question,
+    "user"
+  );
+
+  assistantBusy = true;
+
+  setAssistantSubmitState(
+    true
+  );
+
+  showThinkingIndicator();
+
+  const controller =
+    new AbortController();
+
+  const timeout =
+    setTimeout(
+      () => {
+        controller.abort();
+      },
+      35000
+    );
+
+  try {
+    const response =
+      await fetch(
+        AI_ENDPOINT,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+          body: JSON.stringify({
+            message: question
+          }),
+          signal:
+            controller.signal
+        }
+      );
+
+    const rawText =
+      await response.text();
+
+    let data = null;
+
+    try {
+      data =
+        JSON.parse(
+          rawText
+        );
+    } catch (error) {
+      data = null;
+    }
+
+    if (
+      !response.ok ||
+      !data
+    ) {
+      throw new Error(
+        "Assistant request failed."
+      );
+    }
+
+    const reply =
+      typeof data.reply ===
+        "string"
+        ? data.reply.trim()
+        : "";
+
+    if (!reply) {
+      throw new Error(
+        "Assistant returned no reply."
+      );
+    }
+
+    removeThinkingIndicator();
+
+    addAssistantMessage(
+      reply,
+      "bot"
+    );
+  } catch (error) {
+    removeThinkingIndicator();
+
+    if (
+      error.name ===
+      "AbortError"
+    ) {
+      addAssistantMessage(
+        "The response is taking longer than expected. Please try again.",
+        "bot"
+      );
+    } else {
+      addAssistantMessage(
+        "Masum Assistant is temporarily unable to answer. Please try again shortly.",
+        "bot"
+      );
+    }
+  } finally {
+    clearTimeout(
+      timeout
+    );
+
+    assistantBusy =
+      false;
+
+    setAssistantSubmitState(
+      false
+    );
+
+    scrollAssistantBottom();
+  }
+}
+
+function addAssistantMessage(
+  text,
+  sender
+) {
+  if (
+    !assistantMessages
+  ) {
+    return;
+  }
+
+  const wrapper =
+    document.createElement(
+      "div"
+    );
+
+  wrapper.className =
+    `assistant-message ${sender}`;
+
+  if (
+    sender === "bot"
+  ) {
+    const avatar =
+      document.createElement(
+        "span"
+      );
+
+    avatar.className =
+      "message-avatar";
+
+    avatar.textContent =
+      "M";
+
+    wrapper.appendChild(
+      avatar
     );
   }
 
-  window.addEventListener(
-    "scroll",
-    update,
-    {
-      passive: true
-    }
+  const message =
+    document.createElement(
+      "div"
+    );
+
+  message.textContent =
+    text;
+
+  wrapper.appendChild(
+    message
   );
 
-  update();
+  assistantMessages
+    .appendChild(
+      wrapper
+    );
 
-  topButton?.addEventListener(
-    "click",
+  scrollAssistantBottom();
+}
+
+function showThinkingIndicator() {
+  if (
+    !assistantMessages
+  ) {
+    return;
+  }
+
+  removeThinkingIndicator();
+
+  const wrapper =
+    document.createElement(
+      "div"
+    );
+
+  wrapper.id =
+    "assistantThinking";
+
+  wrapper.className =
+    "assistant-thinking";
+
+  const content =
+    document.createElement(
+      "div"
+    );
+
+  const text =
+    document.createElement(
+      "span"
+    );
+
+  text.textContent =
+    "Thinking";
+
+  const dots =
+    document.createElement(
+      "span"
+    );
+
+  dots.className =
+    "thinking-dots";
+
+  for (
+    let index = 0;
+    index < 3;
+    index += 1
+  ) {
+    const dot =
+      document.createElement(
+        "i"
+      );
+
+    dots.appendChild(
+      dot
+    );
+  }
+
+  content.appendChild(
+    text
+  );
+
+  content.appendChild(
+    dots
+  );
+
+  wrapper.appendChild(
+    content
+  );
+
+  assistantMessages
+    .appendChild(
+      wrapper
+    );
+
+  scrollAssistantBottom();
+}
+
+function removeThinkingIndicator() {
+  document
+    .getElementById(
+      "assistantThinking"
+    )
+    ?.remove();
+}
+
+function setAssistantSubmitState(
+  busy
+) {
+  const button =
+    assistantForm
+      ?.querySelector(
+        'button[type="submit"]'
+      );
+
+  if (!button) {
+    return;
+  }
+
+  button.disabled =
+    busy;
+
+  button.innerHTML =
+    busy
+      ? '<i class="fa-solid fa-spinner fa-spin"></i>'
+      : '<i class="fa-solid fa-arrow-up"></i>';
+}
+
+function scrollAssistantBottom() {
+  if (
+    !assistantMessages
+  ) {
+    return;
+  }
+
+  requestAnimationFrame(
     () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      assistantMessages
+        .scrollTop =
+        assistantMessages
+          .scrollHeight;
     }
   );
+}
+
+function setupAssistantViewport() {
+  if (
+    !window.visualViewport
+  ) {
+    return;
+  }
+
+  window.visualViewport
+    .addEventListener(
+      "resize",
+      syncAssistantViewport
+    );
+
+  window.visualViewport
+    .addEventListener(
+      "scroll",
+      syncAssistantViewport
+    );
+
+  window.addEventListener(
+    "orientationchange",
+    () => {
+      setTimeout(
+        syncAssistantViewport,
+        250
+      );
+    }
+  );
+
+  window.addEventListener(
+    "resize",
+    () => {
+      if (
+        assistantPanel
+          ?.classList
+          .contains("show")
+      ) {
+        syncAssistantViewport();
+      }
+    }
+  );
+}
+
+function syncAssistantViewport() {
+  if (
+    !assistantPanel ||
+    !assistantPanel
+      .classList
+      .contains("show")
+  ) {
+    return;
+  }
+
+  if (
+    !window.matchMedia(
+      "(max-width: 650px)"
+    ).matches
+  ) {
+    resetAssistantViewport();
+    return;
+  }
+
+  const viewport =
+    window.visualViewport;
+
+  if (!viewport) {
+    return;
+  }
+
+  const keyboardDifference =
+    window.innerHeight -
+    viewport.height;
+
+  const keyboardOpen =
+    keyboardDifference > 120;
+
+  if (!keyboardOpen) {
+    resetAssistantViewport();
+    return;
+  }
+
+  const gap = 8;
+
+  const availableHeight =
+    Math.max(
+      280,
+      viewport.height -
+        gap * 2
+    );
+
+  assistantPanel.style.top =
+    `${viewport.offsetTop + gap}px`;
+
+  assistantPanel.style.bottom =
+    "auto";
+
+  assistantPanel.style.height =
+    `${availableHeight}px`;
+
+  assistantPanel.style.maxHeight =
+    `${availableHeight}px`;
+
+  scrollAssistantBottom();
+}
+
+function resetAssistantViewport() {
+  if (!assistantPanel) {
+    return;
+  }
+
+  assistantPanel.style
+    .removeProperty("top");
+
+  assistantPanel.style
+    .removeProperty("bottom");
+
+  assistantPanel.style
+    .removeProperty("height");
+
+  assistantPanel.style
+    .removeProperty(
+      "max-height"
+    );
+}
+
+function setupBackToTop() {
+  topButton
+    ?.addEventListener(
+      "click",
+      () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+    );
 }
 
 function setupYear() {
@@ -1248,87 +1550,10 @@ function setupYear() {
 
   if (year) {
     year.textContent =
-      new Date().getFullYear();
+      new Date()
+        .getFullYear();
   }
 }
-
-function setupActiveNavigation() {
-  const links =
-    Array.from(
-      document.querySelectorAll(
-        ".nav-links a[href^='#']"
-      )
-    );
-
-  const sections =
-    Array.from(
-      document.querySelectorAll(
-        "main section[id]"
-      )
-    );
-
-  if (
-    !links.length ||
-    !sections.length
-  ) {
-    return;
-  }
-
-  function update() {
-    const marker =
-      window.scrollY + 170;
-
-    let current =
-      sections[0]?.id ||
-      "home";
-
-    sections.forEach(
-      section => {
-        if (
-          marker >=
-          section.offsetTop
-        ) {
-          current =
-            section.id;
-        }
-      }
-    );
-
-    links.forEach(
-      link => {
-        link.classList.toggle(
-          "active",
-          link.getAttribute(
-            "href"
-          ) ===
-            `#${current}`
-        );
-      }
-    );
-  }
-
-  window.addEventListener(
-    "scroll",
-    update,
-    {
-      passive: true
-    }
-  );
-
-  update();
-}
-
-window.addEventListener(
-  "pageshow",
-  event => {
-    if (event.persisted) {
-      window.scrollTo(
-        0,
-        0
-      );
-    }
-  }
-);
 
 window.addEventListener(
   "beforeunload",
